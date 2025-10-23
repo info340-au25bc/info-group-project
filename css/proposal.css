@@ -51,3 +51,173 @@ li {
     margin-bottom: 0.5rem;
 }
 
+.journaling-popup-box {
+    width: 700px;
+    height: 450px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background: #FFF;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    position: relative;
+}
+
+.journaling-page header,
+.journaling-page footer {
+    filter: blur(1px);
+}
+
+.journal-book-title {
+    color: #000;
+    font-family: "Raleway", sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.journal-rating {
+    color: #000;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 10px;
+}
+
+.journal-rating-container {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.journal-reflection-prompt {
+    color: #000;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 10px;
+    text-align: center;
+    align-self: center;
+}
+
+.journal-add-quote-button {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-left: 40px;
+    align-self: flex-start;
+    cursor: default;
+    width: auto;
+}
+
+.journal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+    cursor: default;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.journal-date-display {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    color: #999;
+    font-weight: 400;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 12px;
+    background: #fff;
+    min-width: 80px;
+    text-align: center;
+}
+
+.journal-quote-placeholder-1 {
+    position: absolute;
+    top: 80px;
+    right: 55px;
+    width: 200px;
+    height: 50px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #888;
+    text-align: left;
+    line-height: 1.3;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.journal-quote-placeholder-2 {
+    position: absolute;
+    top: 145px;
+    right: 55px;
+    width: 200px;
+    height: 50px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #888;
+    text-align: left;
+    line-height: 1.3;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.journal-thoughts-box {
+    width: 80%;
+    height: 35%;
+    flex-shrink: 0;
+    color: #999;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: 1px solid #ccc;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+}
+
