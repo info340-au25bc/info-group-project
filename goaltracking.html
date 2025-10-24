@@ -3,41 +3,101 @@
 Goal Tracking Page
 -->
 
-<html lang="en">
+<html class="gt-html" lang="en">
 
 <!-- head is metadata, doesn't show on webpage -->
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Serenity Hang, Lana Vuong, Spandana Kannam, Ashley Moua">
     <meta name="description" content="Project Topic Proposal">
     <title>BookBuddy - Goal Tracking</title>
 
     <!-- fonts from Google Fonts -->
-     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons (free CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <!-- body: main content goes here -->
-<body>
-    <!-- page title -- header tag represents introductory content -->
-    <header>
-        <h1>BookBuddy</h1>
+<body class="gt-body">
+    <header class="gt-header">
+      <!-- title of page: -->
+      <div class="gt-title">BookBuddy</div>
+
+      <nav class="gt-menu" aria-label="Main Menu">
+        <input type="checkbox" id="menu-toggle"/>
+
+        <!-- navigation hamburger bar: -->
+        <label for="menu-toggle" id="hamburger" aria-label="Open Menu">
+          <i class="fa fa-bars" aria-label="menu"></i>
+        </label>
+
+
+        <div class="gt-links">
+          <a href="#">Search</a>
+          <a href="homepage.html">Home</a>
+          <a href="BookListing.html">Book List</a>
+          <a href="goaltracking.html">Goal Tracking</a>
+        </div>
+      </nav>
     </header>
 
-   <!-- main tag represents dominant content of body -->
     <main>
+    <!-- progress bar -->
+    <section class="gt-progress">
+      <h2>Progress</h2>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <p>2 of 5 goals completed</p>
+    </section>
 
-      <!-- progress bar / section -->
-      <section>
-        <h2>Goals Completed</h2>
+    <!-- goals -->
+    <section class="gt-goals">
+      <div class="goals-header">
+        <h2>My Reading Goals</h2>
+        <button class="add-goal-btn">+ Add Goal</button>
+      </div>
 
-      </section>
+      <div class="goal-item">
+        <input type="checkbox" id="goal1" disabled checked>
+        <label for="goal1">Read 20 pages</label>
+      </div>
 
-      <!-- adding personal goals -->
+      <div class="goal-item">
+        <input type="checkbox" id="goal2" disabled>
+        <label for="goal2">Finish 'Pride and Prejudice'</label>
+      </div>
 
+      <div class="goal-item">
+        <input type="checkbox" id="goal3" disabled>
+        <label for="goal3">Read 5 new books this month</label>
+      </div>
 
-    </main>
+      <div class="goal-item">
+        <input type="checkbox" id="goal4" disabled>
+        <label for="goal4">Try a new genre</label>
+      </div>
+
+      <div class="goal-item">
+        <input type="checkbox" id="goal5" disabled>
+        <label for="goal5">Write a short book review</label>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+        <p>&copy; 2025 BookBuddy.</p>
+        <div class="footer-links">
+            <a href="mailto:amoua1@uw.edu">Contact Us</a>
+        </div>
+    </div>
+  </footer>
 </body>
 </html>
