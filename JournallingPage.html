@@ -12,18 +12,17 @@
 </head>
 <body class="journaling-page">
     <header>
-        <h1>Book Journaling Placeholder</h1>
+        <h1>BookBuddy: Reading Journal</h1>
     </header>
 
     <main>
         <!-- Journaling Pop-up Display -->
         <section class="journaling-popup-box">
-            <div class="journal-date-display">mm/dd/yyyy</div>
+            <input type="date" class="journal-date-display" id="journal-date">
             <div class="journal-close-button">×</div>
             <div class="journal-quote-placeholder-1">"Quote will appear here..."</div>
             <div class="journal-quote-placeholder-2">"Another quote will appear here..."</div>
             <div class="journal-book-title">[Book Title and Author]</div>
-            <div class="journal-add-quote-button">+ Add a quote or highlight</div>
             <div class="journal-rating-container">
                 <span class="journal-rating">Rating:</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="212" height="44" viewBox="0 0 212 44" fill="none">
@@ -49,16 +48,20 @@
                   </defs>
                 </svg>
             </div>
+            <div class="journal-add-quote-button">+ Add a quote or highlight</div>
             <div class="journal-reflection-prompt">What stood out? Reflect overall</div>
-            <div class="journal-thoughts-box">Write your thoughts...</div>
+            <textarea class="journal-thoughts-box" logged="Write your thoughts..."></textarea>
+            <button class="add-book-button">Add Book</button>
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <p>placeholder</p>
+            <p>&copy; 2025 BookBuddy. All rights reserved.</p>
             <div class="footer-links">
-                <a href="placeholder">placeholder</a>
+                <a href="mailto:contact@bookbuddy.com">Contact Us</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#about">About Us</a>
             </div>
         </div>
     </footer>
