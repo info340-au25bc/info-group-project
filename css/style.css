@@ -18,7 +18,6 @@ h1 {
   font-family: "Raleway", sans-serif;
 }
 
-
 .journaling-popup-box {
     width: 700px;
     height: 450px;
@@ -40,6 +39,10 @@ h1 {
     height: 300px;
 }
 
+.quote-popup .journal-thoughts-box {
+    height: 55%;
+}
+
 .journaling-page header,
 .journaling-page footer {
     filter: blur(1px);
@@ -49,9 +52,7 @@ h1 {
     color: #000;
     font-family: "Raleway", sans-serif;
     font-size: 40px;
-    font-style: normal;
     font-weight: 600;
-    line-height: normal;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -60,9 +61,7 @@ h1 {
     color: #000;
     font-family: "Nunito Sans", sans-serif;
     font-size: 24px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
     margin-right: 10px;
 }
 
@@ -80,9 +79,7 @@ h1 {
     color: #000;
     font-family: "Nunito Sans", sans-serif;
     font-size: 20px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
     margin-bottom: 10px;
     text-align: center;
     align-self: center;
@@ -150,59 +147,45 @@ h1 {
     width: 100px;
     min-width: 60px;
     text-align: center;
-    cursor: pointer;
+}
+
+/* Shared quote placeholder styles */
+.journal-quote-placeholder-1,
+.journal-quote-placeholder-2 {
+    position: absolute;
+    right: 55px;
+    width: 200px;
+    height: 50px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #888;
+    text-align: left;
+    line-height: 1.3;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .journal-quote-placeholder-1 {
-    position: absolute;
     top: 80px;
-    right: 55px;
-    width: 200px;
-    height: 50px;
-    background: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 14px;
-    font-style: italic;
-    color: #888;
-    text-align: left;
-    line-height: 1.3;
-    overflow: hidden;
-    box-sizing: border-box;
 }
 
 .journal-quote-placeholder-2 {
-    position: absolute;
     top: 145px;
-    right: 55px;
-    width: 200px;
-    height: 50px;
-    background: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 14px;
-    font-style: italic;
-    color: #888;
-    text-align: left;
-    line-height: 1.3;
-    overflow: hidden;
-    box-sizing: border-box;
 }
 
 .journal-thoughts-box {
     width: 80%;
-    height: 55%;
+    height: 35%;
     flex-shrink: 0;
     color: #999;
     font-family: "Nunito Sans", sans-serif;
     font-size: 24px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
     border: 1px solid #ccc;
     padding: 15px;
     background: #f9f9f9;
@@ -211,30 +194,7 @@ h1 {
     overflow-y: auto;
 }
 
-/* Specific sizing for journaling page textbox */
-.journaling-popup-box:not(.quote-popup) .journal-thoughts-box {
-    height: 35%;
-}
-
-.add-quote-button {
-    background: #8c5b5e;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: -5px;
-    align-self: center;
-    transition: background-color 0.2s;
-}
-
-.add-quote-button:hover {
-    background: rgb(203, 166, 166);
-}
-
+.add-quote-button,
 .add-book-button {
     background: #8c5b5e;
     color: white;
@@ -250,6 +210,7 @@ h1 {
     transition: background-color 0.2s;
 }
 
+.add-quote-button:hover,
 .add-book-button:hover {
     background: rgb(203, 166, 166);
 }
