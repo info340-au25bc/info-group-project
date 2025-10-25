@@ -47,10 +47,13 @@ Goal Tracking Page
       </nav>
     </header>
 
-    <main>
+  <main>
     <!-- progress bar -->
     <section class="gt-progress">
-      <h2>Progress</h2>
+      <h2 class="progress-heading">Progress</h2>
+
+      <p class="progress-percent">Goal Progress: 40%</p>
+
       <div class="progress-bar">
         <div class="progress-fill"></div>
       </div>
@@ -60,7 +63,10 @@ Goal Tracking Page
     <!-- goals -->
     <section class="gt-goals">
       <div class="goals-header">
-        <h2>My Reading Goals</h2>
+        <h2 class="gt-goals-title">
+          <img src="img/target.png" alt="target icon" class="gt-target">
+          My Reading Goals
+        </h2>
         <button class="add-goal-btn">+ Add Goal</button>
       </div>
 
@@ -70,7 +76,7 @@ Goal Tracking Page
       </div>
 
       <div class="goal-item">
-        <input type="checkbox" id="goal2" disabled>
+        <input type="checkbox" id="goal2" disabled checked>
         <label for="goal2">Finish 'Pride and Prejudice'</label>
       </div>
 
@@ -93,10 +99,18 @@ Goal Tracking Page
 
   <footer>
     <div class="footer-content">
-        <p>&copy; 2025 BookBuddy.</p>
-        <div class="footer-links">
-            <a href="mailto:amoua1@uw.edu">Contact Us</a>
-        </div>
+      <p>&copy; 2025 BookBuddy</p>
+
+      <div class="footer-links">
+          <a href="mailto:amoua1@uw.edu">Contact Us</a>
+      </div>
+
+      <p class="icon-credit">
+      Icon by
+      <a href="https://www.flaticon.com/authors/uniconlabs" target="_blank" rel="noopener noreferrer">Uniconlabs</a>
+      from
+      <a href="https://www.flaticon.com/" target="_blank" rel="noopener noreferrer">Flaticon</a>.
+      </p>
     </div>
   </footer>
 </body>

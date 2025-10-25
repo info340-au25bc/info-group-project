@@ -231,7 +231,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 8px;
+  padding: 20px 16px;
   background-color: #cca987;
   width: 100%;
   box-sizing: border-box;
@@ -287,6 +287,13 @@ h1 {
   margin-bottom: 12px;
 }
 
+.gt-target {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
 /* add goal button */
 .add-goal-btn {
   background-color: #cca987;
@@ -304,16 +311,28 @@ h1 {
 }
 
 /* progress bar */
+.progress-heading {
+  font-size: 35px;
+}
+
 .gt-progress {
   margin: 20px auto;
   width: 90%;
-  max-width: 600px;
+  max-width: 700px;
   text-align: center;
+}
+
+.progress-percent {
+  display: none;
+  font-weight: 600;
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 
 .progress-bar {
   width: 100%;
-  height: 25px;
+  height: 43px;
   background-color: #eee;
   border-radius: 12px;
   overflow: hidden;
@@ -329,7 +348,7 @@ h1 {
 
 .gt-progress p {
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
 }
 
@@ -366,10 +385,28 @@ h1 {
   font-size: 16px;
 }
 
+.icon-credit {
+  font-size: 0.75rem;
+  color: #4b3b2a;
+  margin-top: 6px;
+}
+
+.icon-credit a {
+  color: inherit;
+  text-decoration: underline;
+}
+.icon-credit a:hover {
+  text-decoration: none;
+}
+
 /* media screens: */
 @media (min-width: 768px) {
   #hamburger {
     display: none;
+  }
+
+  .progress-heading {
+    font-size: 30px;
   }
 
   .gt-links {
@@ -391,9 +428,13 @@ h1 {
   }
 
   .gt-progress, .gt-goals {
-    width: 80%;          /* use more of the screen width */
+    width: 80%;
     max-width: 900px;
     margin: 40px auto;
+  }
+
+  .progress-percent {
+    display: block;
   }
 
   .progress-bar {
