@@ -463,3 +463,134 @@ h1 {
     transition: all 0.2s ease;
   }
 }
+
+/* --- navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #cca987;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-title {
+  font-family: 'Ribeye', cursive;
+  font-size: 30px;
+  font-weight: 600;
+  color: #373133;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #3b2f2f;
+  font-weight: 600;
+  font-family: "Nunito Sans", sans-serif;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.search-icon {
+  font-size: 1.2rem;
+  color: #3b2f2f;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.search-icon:hover {
+  transform: scale(1.2);
+}
+
+/* --- homepage --- */
+.home-main {
+  font-family: 'Nunito Sans', sans-serif;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background-color: #F0EEEE;
+  color: #373133;
+}
+
+.home-hero {
+  margin-bottom: 3rem;
+}
+
+.home-title {
+  font-family: 'Ribeye', cursive;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #8C5B5E;
+}
+
+.home-title span {
+  color: #947A61;
+}
+
+.home-subtitle {
+  font-size: 1.1rem;
+  color: #969198;
+}
+
+.shelf-heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #373133;
+}
+
+.bookshelf {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 2rem 0;
+}
+
+.book {
+  width: 50px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 700;
+  color: #F0EEEE;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.book:hover {
+  transform: translateY(-6px);
+}
