@@ -1,55 +1,51 @@
 <!DOCTYPE html>
-<html lang="'en">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="author" content="Serenity Hang, Lana Vuong, Spandana Kannam, Ashley Moua">
-    <title>BookBuddy - Homepage</title>
-    <link rel="stylesheet"  href="css/style.css"
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Serenity Hang, Lana Vuong, Spandana Kannam, Ashley Moua">
+  <title>BookBuddy - Home</title>
+
+<!-- fonts from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+
 </head>
-
 <body>
-    <header>
-        <div class="logo">
-            <img src=".png" alt="BookBuddy Logo">
-            <span>BookBuddy</span>
-        </div>
-        <nav>
-            <a href="#">All Books</a>
-            <a href="#">Goals</a>
-            <a href="#">Jouraling</a>
-            <img src="search-icon.png" alt="Search" class="search-icon">
-        </nav>
-    </header>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="logo.png" alt="BookBuddy Logo" class="logo">
+      <h1 class="site-title">BookBuddy</h1>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="BookListing.html">All Books</a></li>
+        <li><a href="goaltracking.html">Goals</a></li>
+        <li><a href="JournallingPage.html">Journal</a></li>
+      </ul>
+      <a href="search.html" class="search-icon">🔍</a>
+    </div>
+  </nav>
 
-    <main>
-        <section>
-            <h2>Recently Added Books</h2>
-            <div class="bookshelf">
-                <!-- Example book cards -->
-                <div class="book-card">
-                    <img src="book1.jpg" alt="Book Cover">
-                    <h3>The Great Gatsby</h3>
-                    <p>F. Scott Fitzgerald</p>
-                </div>
-                <div class="book-card">
-                    <img src="book2.jpg" alt="Book Cover">
-                    <h3>1984</h3>
-                    <p>George Orwell</p>
-                </div>
-                <div class="book-card">
-                    <img src="book3.jpg" alt="Book Cover">
-                    <h3>To Kill a Mockingbird</h3>
-                    <p>Harper Lee</p>
-                </div>
-                <div class="book-card">
-                    <img src="book4.jpg" alt="Book Cover">
-                    <h3>Pride and Prejudice</h3>
-                    <p>Jane Austen</p>
-                </div>
-            </div>
-        </section>
-    </main>
+  <!-- Main Content -->
+<main class="home-main">
+  <section class="home-hero">
+    <h1 class="home-title">Welcome back to <span>BookBuddy!</span></h1>
+    <p class="home-subtitle">Your personal library, goals, and reflections all in one spot.</p>
+  </section>
+
+  <section class="home-shelf">
+    <h2 class="shelf-heading">Recently Added Books</h2>
+    <div class="bookshelf">
+      <div class="book" style="background-color: #947A61;">The Goldfinch</div>
+      <div class="book" style="background-color: #969198;">Educated</div>
+      <div class="book" style="background-color: #8C5B5E;">Atomic Habits</div>
+      <div class="book" style="background-color: #947A61;">Becoming</div>
+      <div class="book" style="background-color: #373133;">Circe</div>
+    </div>
+  </section>
+</main>
 </body>
-
 </html>
