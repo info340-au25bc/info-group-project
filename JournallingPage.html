@@ -10,21 +10,21 @@
     <link rel="stylesheet" href="css/style.css">
     <title> Journaling Page </title>
 </head>
-<body class="journaling-page">
+<body class="journal-page">
     <header>
         <h1>BookBuddy: Reading Journal</h1>
     </header>
 
     <main>
         <!-- Journaling Pop-up Display -->
-        <section class="journaling-popup-box">
-            <input type="date" class="journal-date-display">
-            <div class="journal-close-button">×</div>
-            <div class="journal-quote-placeholder-1">"Quote will appear here..."</div>
-            <div class="journal-quote-placeholder-2">"Another quote will appear here..."</div>
-            <div class="journal-book-title">[Book Title and Author]</div>
-            <div class="journal-rating-container">
-                <span class="journal-rating">Rating:</span>
+        <section class="book-journal-box">
+            <input type="date" class="date-input">
+            <div class="close-btn">×</div>
+            <div class="quote-box1">"Quote will appear here..."</div>
+            <div class="quote-box2">"Another quote will appear here..."</div>
+            <div class="book-title">[Book Title and Author]</div>
+            <div class="rating-area">
+                <span class="star-rating">Rating:</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="212" height="44" viewBox="0 0 212 44" fill="none">
                   <g filter="url(#filter0_d_38_103)">
                     <path d="M22.0701 0L26.3358 13.4742H40.1402L28.9722 21.8017L33.238 35.2758L22.0701 26.9483L10.9022 35.2758L15.1679 21.8017L4 13.4742H17.8043L22.0701 0Z" fill="white"/>
@@ -48,9 +48,9 @@
                   </defs>
                 </svg>
             </div>
-            <div class="journal-add-quote-button">+ Add a quote or highlight</div>
-            <div class="journal-reflection-prompt">What stood out? Reflect overall</div>
-            <textarea class="journal-thoughts-box" placeholder="Write your thoughts..."></textarea>
+            <div class="quote-btn">+ Add a quote or highlight</div>
+            <div class="reflection-question">What stood out? Reflect overall</div>
+            <textarea class="thoughts-area" placeholder="Write your thoughts..."></textarea>
             <button class="add-book-button">Add Note</button>
         </section>
     </main>

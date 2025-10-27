@@ -2,35 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Serenity Hang, Lana Vuong, Spandana Kannam, Ashley Moua">
-    <meta name="description" content="Journaling Page for Book Thoughts and Notes">
+    <meta name="description" content="Book Listings - Your Personal Library">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
+    
     <link rel="stylesheet" href="css/style.css">
-    <title> Book Listings </title>
+    <title>BookBuddy - All Books</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <h1>All of Your Books</h1>
-            <ul>
-                <li><a href="#contact">placeholder</a></li>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="logo.png" alt="BookBuddy Logo" class="logo">
+            <a href="index.html" class="site-title-link"><h1 class="site-title">BookBuddy</h1></a>
+        </div>
+        <div class="nav-right">
+            <input type="checkbox" id="menu-toggle"/>
+            <label for="menu-toggle" id="hamburger" aria-label="Open Menu">
+                <i class="fa fa-bars" aria-label="menu"></i>
+            </label>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="BookListing.html">All Books</a></li>
+                <li><a href="goaltracking.html">Goals</a></li>
+                <li><a href="search.html" class="search-icon">🔍</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <main>
-        <!-- Main content goes here -->
-        <h2>placeholder</h2>
-        <p>placeholder</p>
+    <main class="book-page">
+        <section class="book-hero">
+            <h1 class="book-list-title">Your Personal <span>Library</span></h1>
+            <p class="book-list-subtitle">All your books, organized and ready to explore.</p>
+        </section>
+
+        <section class="book-content">
+            <div class="book-header">
+                <h2 class="collection-heading">My Book Collection</h2>
+                <a href="BookEntry.html" class="add-book-btn">+ Add New Book</a>
+            </div>
+            
+            <!-- filter/sort -->
+            <div class="filter-sort-container">
+                <div class="filter-section">
+                    <label for="status-filter">Filter by Status:</label>
+                    <select id="status-filter">
+                        <option value="all">All Books</option>
+                        <option value="reading">Currently Reading</option>
+                        <option value="completed">Completed</option>
+                        <option value="want-to-read">Want to Read</option>
+                    </select>
+                </div>
+                
+                <div class="sort-section">
+                    <label for="sort-options">Sort by:</label>
+                    <select id="sort-options">
+                        <option value="title">Title (A-Z)</option>
+                        <option value="author">Author (A-Z)</option>
+                        <option value="status">Reading Status</option>
+                        <option value="date-added">Date Added</option>
+                    </select>
+                </div>
+                
+                <div class="search-section">
+                    <label for="book-search">Search:</label>
+                    <input type="text" id="book-search" placeholder="Search books or authors...">
+                </div>
+            </div>
+            
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-spine" style="background-color: #947A61;">Placeholder Title</div>
+                    <div class="book-info">
+                        <h3>Placeholder Title</h3>
+                        <p>Placeholder Author</p>
+                        <span class="book-status">Reading</span>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-spine" style="background-color: #969198;">Placeholder Title</div>
+                    <div class="book-info">
+                        <h3>Placeholder Title</h3>
+                        <p>Placeholder Author</p>
+                        <span class="book-status completed">Completed</span>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-spine" style="background-color: #8C5B5E;">Placeholder Title</div>
+                    <div class="book-info">
+                        <h3>Placeholder Title</h3>
+                        <p>Placeholder Author</p>
+                        <span class="book-status">Want to Read</span>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-spine" style="background-color: #947A61;">Placeholder Title</div>
+                    <div class="book-info">
+                        <h3>Placeholder Title</h3>
+                        <p>Placeholder Author</p>
+                        <span class="book-status completed">Completed</span>
+                    </div>
+                </div>
+                
+                <div class="book-card">
+                    <div class="book-spine" style="background-color: #373133;">Placeholder Title</div>
+                    <div class="book-info">
+                        <h3>Placeholder Title</h3>
+                        <p>Placeholder Author</p>
+                        <span class="book-status">Reading</span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="footer-content">
-            <p>placeholder</p>
+            <p>&copy; 2025 BookBuddy.</p>
             <div class="footer-links">
-                <a href="placeholder">placeholder</a>
+                <a href="mailto:contact@bookbuddy.com">Contact Us</a>
             </div>
         </div>
     </footer>

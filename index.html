@@ -9,6 +9,9 @@
 <!-- fonts from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
+  
   <link rel="stylesheet" href="css/style.css" />
 
 </head>
@@ -17,15 +20,19 @@
   <nav class="navbar">
     <div class="nav-left">
       <img src="logo.png" alt="BookBuddy Logo" class="logo">
-      <h1 class="site-title">BookBuddy</h1>
+      <a href="index.html" class="site-title-link"><h1 class="site-title">BookBuddy</h1></a>
     </div>
     <div class="nav-right">
+      <input type="checkbox" id="menu-toggle"/>
+      <label for="menu-toggle" id="hamburger" aria-label="Open Menu">
+        <i class="fa fa-bars" aria-label="menu"></i>
+      </label>
       <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="BookListing.html">All Books</a></li>
         <li><a href="goaltracking.html">Goals</a></li>
-        <li><a href="JournallingPage.html">Journal</a></li>
+        <li><a href="search.html" class="search-icon">🔍</a></li>
       </ul>
-      <a href="search.html" class="search-icon">🔍</a>
     </div>
   </nav>
 
@@ -39,11 +46,11 @@
   <section class="home-shelf">
     <h2 class="shelf-heading">Recently Added Books</h2>
     <div class="bookshelf">
-      <div class="book" style="background-color: #947A61;">The Goldfinch</div>
-      <div class="book" style="background-color: #969198;">Educated</div>
-      <div class="book" style="background-color: #8C5B5E;">Atomic Habits</div>
-      <div class="book" style="background-color: #947A61;">Becoming</div>
-      <div class="book" style="background-color: #373133;">Circe</div>
+      <div class="book" style="background-color: #947A61;">Placeholder</div>
+      <div class="book" style="background-color: #969198;">Placeholder</div>
+      <div class="book" style="background-color: #8C5B5E;">Placeholder</div>
+      <div class="book" style="background-color: #947A61;">Placeholder</div>
+      <div class="book" style="background-color: #373133;">Placeholder</div>
     </div>
   </section>
 </main>

@@ -18,7 +18,7 @@ h1 {
   font-family: "Raleway", sans-serif;
 }
 
-.journaling-popup-box {
+.book-journal-box {
     width: 700px;
     height: 450px;
     flex-shrink: 0;
@@ -33,22 +33,23 @@ h1 {
     padding: 1rem;
     padding-bottom: 2rem;
     position: relative;
+    z-index: 1;
 }
 
 .quote-popup {
     height: 300px;
 }
 
-.quote-popup .journal-thoughts-box {
+.quote-popup .thoughts-area {
     height: 55%;
 }
 
-.journaling-page header,
-.journaling-page footer {
-    filter: blur(1px);
+.journal-page {
+    background-color: #F0EEEE;
+    min-height: 100vh;
 }
 
-.journal-book-title {
+.book-title {
     color: #000;
     font-family: "Raleway", sans-serif;
     font-size: 40px;
@@ -57,7 +58,7 @@ h1 {
     text-align: center;
 }
 
-.journal-rating {
+.star-rating {
     color: #000;
     font-family: "Nunito Sans", sans-serif;
     font-size: 24px;
@@ -65,7 +66,7 @@ h1 {
     margin-right: 10px;
 }
 
-.journal-rating-container {
+.rating-area {
     display: flex;
     align-items: center;
     align-self: flex-start;
@@ -75,7 +76,7 @@ h1 {
     transform: translateY(-15px);
 }
 
-.journal-reflection-prompt {
+.reflection-question {
     color: #000;
     font-family: "Nunito Sans", sans-serif;
     font-size: 20px;
@@ -96,7 +97,7 @@ h1 {
     align-self: center;
 }
 
-.journal-add-quote-button {
+.quote-btn {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -112,7 +113,7 @@ h1 {
     width: auto;
 }
 
-.journal-close-button {
+.close-btn {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -127,12 +128,13 @@ h1 {
     align-items: center;
     justify-content: center;
     transition: color 0.2s ease;
+    text-decoration: none;
 }
-.journal-close-button:hover {
+.close-btn:hover {
     color: #000000;
 }
 
-.journal-date-display {
+.date-input {
     position: absolute;
     top: 15px;
     left: 15px;
@@ -148,8 +150,8 @@ h1 {
     min-width: 60px;
     text-align: center;
 }
-.journal-quote-placeholder-1,
-.journal-quote-placeholder-2 {
+.quote-box1,
+.quote-box2 {
     position: absolute;
     right: 55px;
     width: 200px;
@@ -168,15 +170,15 @@ h1 {
     box-sizing: border-box;
 }
 
-.journal-quote-placeholder-1 {
+.quote-box1 {
     top: 80px;
 }
 
-.journal-quote-placeholder-2 {
+.quote-box2 {
     top: 145px;
 }
 
-.journal-thoughts-box {
+.thoughts-area {
     width: 80%;
     height: 35%;
     flex-shrink: 0;
@@ -240,6 +242,15 @@ h1 {
   font-size: 30px;
   font-weight: 600;
   color: #373133;
+}
+
+.gt-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.gt-title-link:hover .gt-title {
+  color: #8C5B5E;
 }
 
 #menu-toggle {
@@ -486,12 +497,35 @@ h1 {
   font-size: 30px;
   font-weight: 600;
   color: #373133;
+  margin: 0;
+}
+
+.site-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-title-link:hover .site-title {
+  color: #8C5B5E;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  position: relative;
+}
+
+/* Hamburger menu styles for navbar */
+.navbar #menu-toggle {
+  display: none;
+}
+
+.navbar #hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #373133;
 }
 
 .nav-links {
@@ -587,4 +621,433 @@ h1 {
 
 .book:hover {
   transform: translateY(-6px);
+}
+
+.book-page {
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #F0EEEE;
+  color: #373133;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+}
+
+.book-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.book-list-title {
+  font-family: 'Ribeye', cursive;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #8C5B5E;
+}
+
+.book-list-title span {
+  color: #947A61;
+}
+
+.book-list-subtitle {
+  font-size: 1.1rem;
+  color: #969198;
+}
+
+.book-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.book-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.collection-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #373133;
+  margin: 0;
+}
+
+.add-book-btn {
+  background-color: #8C5B5E;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-book-btn:hover {
+  background-color: #6d474a;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.book-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.book-spine {
+  width: 60px;
+  height: 200px;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 700;
+  color: #F0EEEE;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+}
+
+.book-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #373133;
+  margin: 0.5rem 0;
+}
+
+.book-info p {
+  font-size: 1rem;
+  color: #969198;
+  margin: 0.5rem 0;
+}
+
+.book-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: #cca987;
+  color: white;
+}
+
+.book-status.completed {
+  background-color: #669964;
+}
+
+.filter-sort-container {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-section, .sort-section, .search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 150px;
+}
+
+.filter-sort-container label {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 600;
+  color: #373133;
+  font-size: 14px;
+}
+
+.filter-sort-container select,
+.filter-sort-container input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #cca987;
+  border-radius: 6px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 14px;
+  background-color: white;
+  color: #373133;
+  transition: border-color 0.2s ease;
+}
+
+.filter-sort-container select:focus,
+.filter-sort-container input[type="text"]:focus {
+  outline: none;
+  border-color: #8C5B5E;
+  box-shadow: 0 0 0 2px rgba(140, 91, 94, 0.1);
+}
+
+.search-section input[type="text"] {
+  min-width: 200px;
+}
+
+@media (max-width: 768px) {
+  /* navbar hamburger  */
+  .navbar #hamburger {
+    display: block;
+  }
+  
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #f5f5f5;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+  }
+  
+  .navbar #menu-toggle:checked + #hamburger + .nav-links {
+    display: flex;
+  }
+  
+  .nav-links a {
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .nav-links a:hover {
+    color: #8C5B5E;
+  }
+  
+  .search-icon {
+    font-size: 1rem;
+  }
+  
+  /* Navbar resize */
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .site-title {
+    font-size: 24px;
+  }
+  
+  /* homepage resize */
+  .home-main {
+    padding: 2rem 1rem;
+  }
+  
+  .home-title {
+    font-size: 2rem;
+  }
+  
+  .bookshelf {
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+  }
+  
+  .book {
+    width: 40px;
+    height: 150px;
+    font-size: 12px;
+  }
+  
+  /* Book listing responsiveness */
+  .book-page {
+    padding: 1.5rem 1rem;
+  }
+  
+  .book-list-title {
+    font-size: 2rem;
+  }
+  
+  .book-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .book-spine {
+    width: 50px;
+    height: 160px;
+    font-size: 12px;
+  }
+  
+  /* filter and sort responsive */
+  .filter-sort-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .filter-section, .sort-section, .search-section {
+    min-width: 100%;
+  }
+  
+  .search-section input[type="text"] {
+    min-width: 100%;
+  }
+  
+  /* Journaling popup resize */
+  .book-journal-box {
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    min-height: 400px;
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+  
+  .book-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .star-rating {
+    font-size: 20px;
+  }
+  
+  .rating-area {
+    margin-left: 20px;
+  }
+  
+  .quote-btn {
+    margin-left: 20px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  
+  .quote-box1,
+  .quote-box2 {
+    right: 20px;
+    width: 150px;
+    height: 40px;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  
+  .quote-box1 {
+    top: 70px;
+  }
+  
+  .quote-box2 {
+    top: 120px;
+  }
+  
+  .thoughts-area {
+    width: 90%;
+    font-size: 18px;
+    padding: 12px;
+  }
+  
+  .quote-popup {
+    height: auto;
+    min-height: 250px;
+  }
+}
+
+/*  xsmall screens */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+  
+  .nav-right {
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .home-title {
+    font-size: 1.8rem;
+  }
+  
+  .home-subtitle {
+    font-size: 1rem;
+  }
+  
+  .book-journal-box {
+    width: 95%;
+    margin: 0.5rem auto;
+    padding: 0.8rem;
+  }
+  
+  .book-title {
+    font-size: 24px;
+  }
+  
+  .rating-area {
+    margin-left: 10px;
+  }
+  
+  .quote-btn {
+    margin-left: 10px;
+  }
+  
+  .quote-box1,
+  .quote-box2 {
+    right: 10px;
+    width: 120px;
+    height: 35px;
+    font-size: 11px;
+  }
+  
+  .book-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* large screens */
+@media (min-width: 1200px) {
+  .book-content {
+    max-width: 1400px;
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .book-journal-box {
+    width: 800px;
+    height: 500px;
+  }
+  
+  .book-title {
+    font-size: 45px;
+  }
+  
+  .home-title {
+    font-size: 3rem;
+  }
+  
+  .book-list-title {
+    font-size: 3rem;
+  }
 }
