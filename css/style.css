@@ -30,9 +30,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
-    padding-bottom: 2rem;
-    position: relative;
+    padding: 1rem 1rem 2rem;
     z-index: 1;
 }
 
@@ -83,7 +81,6 @@ h1 {
     font-weight: 700;
     margin-bottom: 10px;
     text-align: center;
-    align-self: center;
 }
 
 .quote-subtitle {
@@ -94,7 +91,6 @@ h1 {
     font-weight: 400;
     text-align: center;
     margin-bottom: 15px;
-    align-self: center;
 }
 
 .quote-btn {
@@ -150,10 +146,16 @@ h1 {
     min-width: 60px;
     text-align: center;
 }
+.quote-boxes-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-right: 40px;
+}
+
 .quote-box1,
 .quote-box2 {
-    position: absolute;
-    right: 55px;
     width: 200px;
     height: 50px;
     background: #f8f9fa;
@@ -168,14 +170,8 @@ h1 {
     line-height: 1.3;
     overflow: hidden;
     box-sizing: border-box;
-}
-
-.quote-box1 {
-    top: 80px;
-}
-
-.quote-box2 {
-    top: 145px;
+    display: flex;
+    align-items: center;
 }
 
 .thoughts-area {
@@ -356,7 +352,7 @@ h1 {
 .progress-fill {
   height: 100%;
   background-color: #cca987;
-  width: 40%
+  width: 40%;
 }
 
 .gt-progress p {
@@ -513,7 +509,6 @@ h1 {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  position: relative;
 }
 
 /* Hamburger menu styles for navbar */
@@ -634,7 +629,6 @@ h1 {
 .book-header-section {
   text-align: center;
   margin-bottom: 3rem;
-  position: relative;
   min-height: 300px;
   padding: 2rem 0;
   background-image: url('../img/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg');
@@ -642,6 +636,7 @@ h1 {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
 }
 
 .book-header-section::before {
@@ -651,27 +646,14 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(240, 238, 238, 0.7);
-  z-index: 1;
+  background: rgba(255, 255, 255, 0.2.book);
 }
 
 .book-list-title,
 .book-list-subtitle {
-  position: relative;
-  z-index: 2;
-}
-
-.header-background-image {
-  display: none;
-}
-
-.library-background {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.4;
-  filter: blur(1px);
-  min-height: 300px;
+    z-index: 2;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .book-list-title {
@@ -679,7 +661,6 @@ h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: #8C5B5E;
-  position: relative;
   z-index: 1;
   text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
 }
@@ -690,9 +671,7 @@ h1 {
 
 .book-list-subtitle {
   font-size: 1.1rem;
-  color: #969198;
-  position: relative;
-  z-index: 1;
+  color: #373133;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
 }
 
@@ -931,7 +910,7 @@ h1 {
   }
   
   .book-header-section::before {
-    background: rgba(240, 238, 238, 0.8);
+    background: rgba(255, 255, 255, 0.25);
   }
   
   .book-header {
@@ -994,21 +973,20 @@ h1 {
     padding: 6px 12px;
   }
   
+  .quote-boxes-container {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-right: 0;
+  }
+  
   .quote-box1,
   .quote-box2 {
-    right: 20px;
     width: 150px;
     height: 40px;
     font-size: 12px;
     padding: 6px 8px;
-  }
-  
-  .quote-box1 {
-    top: 70px;
-  }
-  
-  .quote-box2 {
-    top: 120px;
   }
   
   .thoughts-area {
@@ -1065,7 +1043,6 @@ h1 {
   
   .quote-box1,
   .quote-box2 {
-    right: 10px;
     width: 120px;
     height: 35px;
     font-size: 11px;
