@@ -568,7 +568,7 @@ h1 {
   color: #373133;
 }
 
-.home-hero {
+.home-banner {
   margin-bottom: 3rem;
 }
 
@@ -631,9 +631,47 @@ h1 {
   padding: 2rem 1.5rem;
 }
 
-.book-hero {
+.book-header-section {
   text-align: center;
   margin-bottom: 3rem;
+  position: relative;
+  min-height: 300px;
+  padding: 2rem 0;
+  background-image: url('../img/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.book-header-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(240, 238, 238, 0.7);
+  z-index: 1;
+}
+
+.book-list-title,
+.book-list-subtitle {
+  position: relative;
+  z-index: 2;
+}
+
+.header-background-image {
+  display: none;
+}
+
+.library-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  filter: blur(1px);
+  min-height: 300px;
 }
 
 .book-list-title {
@@ -641,6 +679,9 @@ h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: #8C5B5E;
+  position: relative;
+  z-index: 1;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
 }
 
 .book-list-title span {
@@ -650,6 +691,9 @@ h1 {
 .book-list-subtitle {
   font-size: 1.1rem;
   color: #969198;
+  position: relative;
+  z-index: 1;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
 }
 
 .book-content {
@@ -878,6 +922,16 @@ h1 {
   
   .book-list-title {
     font-size: 2rem;
+  }
+  
+  .book-header-section {
+    min-height: 250px;
+    padding: 1.5rem 0;
+    background-attachment: scroll;
+  }
+  
+  .book-header-section::before {
+    background: rgba(240, 238, 238, 0.8);
   }
   
   .book-header {

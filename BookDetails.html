@@ -4,15 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book Details</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-  <!-- Navigation -->
-  <header class="navbar">
-    <h1>My Bookshelf</h1>
-    <a href="index.html" class="back-button">← Back to Shelf</a>
-  </header>
+  
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="img/BookBuddy Logo.png" alt="BookBuddy Logo" class="logo">
+      <a href="index.html" class="site-title-link"><h1 class="site-title">BookBuddy</h1></a>
+    </div>
+    <div class="nav-right">
+      <input type="checkbox" id="menu-toggle"/>
+      <label for="menu-toggle" id="hamburger" aria-label="Open Menu">
+        <i class="fa fa-bars" aria-label="menu"></i>
+      </label>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="BookListing.html">All Books</a></li>
+        <li><a href="goaltracking.html">Goals</a></li>
+        <li><a href="search.html" class="search-icon">🔍</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- Book Detail Section -->
   <main class="book-details">
