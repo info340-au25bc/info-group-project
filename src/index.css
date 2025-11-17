@@ -413,6 +413,17 @@ h1 {
   text-decoration: none;
 }
 
+/* checkbox */
+.goal-item input[type="checkbox"] {
+  accent-color: #cca987;
+  cursor: pointer;
+}
+
+.goal-item input[type="checkbox"]:checked + label {
+  color: #b08b70;
+  text-decoration: line-through;
+}
+
 /* media screens: */
 @media (min-width: 768px) {
   #hamburger {
