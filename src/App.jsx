@@ -1,17 +1,19 @@
 import React from 'react'; //import React Component
 
 import NavBar from "./components/navbar";
+import GoalsPage from './components/goaltracking';
+import { Routes, Route } from "react-router"
 
 function App(props) {
 
   return(
     <div>
       <NavBar />
-
-
-
-
-
+      <Routes>
+        <Route path="/goals" element={<GoalsPage />} />
+      </Routes>
     </div>
   );
 }
+
+export default App;
