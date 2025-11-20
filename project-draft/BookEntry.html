@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Serenity Hang, Lana Vuong, Spandana Kannam, Ashley Moua">
     <meta name="description" content=" Book Entry Page">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/style.css" />
     
-    <link rel="stylesheet" href="css/style.css">
     <title> Book Entry </title>
 </head>
 <body>
@@ -33,30 +34,80 @@
         </div>
     </nav>
 
+    <!-- Book Entry Page -->
     <main>
-        <!-- Book Entry Display -->
-        <section>
-            <h2>Book Entry</h2>
-            <div>
-                <p><strong>Book Title:</strong> Enter Book Title</p>
+        <section class="book-entry-card">
+            <h2>Book Entry</h2> 
+            
+            <!-- Optional Book Cover -->
+            <div class="form-group">
+                <label for="cover"><strong>Upload Book Cover (optional):</strong></label>
+                <input type="file" id="cover" accept="image/*">
+                <img id="cover-preview" style="display:none; max-width:200px; margin-top:10px; border-radius:5px;" alt="Book Cover Preview">
             </div>
             
-            <div>
-                <p><strong>Author:</strong> Enter Author Name</p>
+            <!-- Book Title -->
+            <div class="form-group">
+                <label for="title"><strong>Book Title:</strong></label>
+                <input type="text" id="title" placeholder="Enter Book Title">
             </div>
-            
-            <div>
-                <p><strong>Genre:</strong> Enter Genre</p>
+
+            <!-- Author -->
+            <div class="form-group">
+                <label for="author"><strong>Author:</strong></label>
+                <input type="text" id="author" placeholder="Enter Book Author">
             </div>
-            
-            <div>
-                <p><strong>Reading Status:</strong> Enter Reading Status</p>
+
+            <!-- Genre Dropdown -->
+             <div class="form-group">
+                <label for="genre"><strong>Genre:</strong></label>
+                <select id="genre">
+                    <option value="">Select a genre</option>
+
+                    <optgroup label="Fiction">
+                        <option value="Mystery">Mystery</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Science Fiction">Science Fiction</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Historical Fiction">Historical Fiction</option>
+                    </optgroup>
+
+                    <optgroup label="Non-Fiction">
+                        <option value="Biography">Biography</option>
+                        <option value="Self-Help">Self-Help</option>
+                        <option value="Memoir">Memoir</option>
+                        <option value="Essay">Essay</option>
+                        <option value="Poetry">Poetry</option>
+                        <option value="History">History</option>
+                    </optgroup>
+                </select>
             </div>
-            
-            <div>
-                <p><strong>Notes/Thoughts:</strong></p>
-                <p>This is where thoughts and notes about the book would appear. Sample text showing how a reader might reflect on the book's themes, characters, or personal connections.</p>
+
+            <!-- Reading Status Dropdown -->
+            <div class="form-group">
+                <label for="status"><strong>Reading Status:</strong></label>
+                <select id="status">
+                    <option value="">Select status</option>
+                    <option value="In Progress">Want to Read</option>
+                    <option value="Completed">In Progress</option>
+                    <option value="Want to Read">Completed</option>
+                    <option value="Abandoned">Dropped</option>
+                </select>
             </div>
+
+            <!-- Notes -->
+            <div class="form-group">
+                <label for="notes"><strong>Notes:</strong></label>
+                <div id="prompt" class="prompt-text" style="margin-bottom: 10px; font-style: italic; color: #555;">
+                    <!-- Random prompt will appear here -->
+                </div>
+                <textarea id="notes" rows="8" placeholder="Write your thoughts, reflections, or any notes about the book here..."></textarea>
+            </div>
+
+            <!-- Save Book to 'All Books' Page -->
+            <button id="save-book" type="button" class="btn-submit">Save Book</button>
+
         </section>
     </main>
 
@@ -68,5 +119,22 @@
             </div>
         </div>
     </footer>
+
+    <script>
+    const coverInput = document.getElementById('cover');
+    const coverPreview = document.getElementById('cover-preview');
+
+    coverInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            coverPreview.src = URL.createObjectURL(file);
+            coverPreview.style.display = 'block';
+        } else {
+            coverPreview.src = '';
+            coverPreview.style.display = 'none';
+        }
+    });
+    </script>
+
 </body>
 </html>
