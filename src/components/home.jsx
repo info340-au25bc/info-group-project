@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router';
 
 export default function HomePage() {
   return (
@@ -27,21 +28,31 @@ export default function HomePage() {
         <h2 className="shelf-heading">Recently Added Books</h2>
 
         <div className="bookshelf">
+        <Link to={`/book/1`} className="book-card-link">
           <div className="book" style={{ backgroundColor: "#947A61" }}>
             Placeholder
           </div>
+        </Link>
+        <Link to={`/book/2`} className="book-card-link">
           <div className="book" style={{ backgroundColor: "#969198" }}>
             Placeholder
           </div>
+        </Link>
+        <Link to={`/book/3`} className="book-card-link">
           <div className="book" style={{ backgroundColor: "#8C5B5E" }}>
             Placeholder
           </div>
+        </Link>
+        <Link to={`/book/4`} className="book-card-link">
           <div className="book" style={{ backgroundColor: "#947A61" }}>
             Placeholder
           </div>
+        </Link>
+        <Link to={`/book/5`} className="book-card-link">
           <div className="book" style={{ backgroundColor: "#373133" }}>
             Placeholder
           </div>
+        </Link>
         </div>
       </section>
     </main>

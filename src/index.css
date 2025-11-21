@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ribeye&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 
 body {
   font-family: "Nunito Sans", sans-serif;
@@ -471,62 +472,7 @@ h1 {
   text-decoration: line-through;
 }
 
-/* media screens: */
-@media (min-width: 768px) {
-  #hamburger {
-    display: none;
-  }
 
-  .progress-heading {
-    font-size: 30px;
-  }
-
-  .gt-links {
-    display: flex;
-    flex-direction: row;
-    position: static;
-    background: none;
-    padding: 0;
-    box-shadow: none;
-    border-radius: 0;
-    gap: 20px;
-    align-items: center;
-  }
-
-  .gt-links a {
-    color: #3b2f2f;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .gt-progress, .gt-goals {
-    width: 80%;
-    max-width: 900px;
-    margin: 40px auto;
-  }
-
-  .progress-percent {
-    display: block;
-  }
-
-  .progress-bar {
-    height: 35px;
-  }
-
-  .goal-item {
-    padding: 16px 24px;
-    font-size: 18px;
-  }
-
-  .goals-header h2 {
-    font-size: 24px;
-  }
-
-  .add-goal-btn {
-    padding: 10px 10px;
-    font-size: 16px;
-  }
-}
 
 /* --- navbar --- */
 .navbar {
@@ -717,6 +663,7 @@ h1 {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  z-index: 0;
   background-attachment: fixed;
   position: relative;
 }
@@ -918,262 +865,6 @@ h1 {
   min-width: 200px;
 }
 
-@media (max-width: 768px) {
-  /* navbar hamburger  */
-  .navbar #hamburger {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background: #f5f5f5;
-    padding: 10px;
-    position: absolute;
-    right: 0;
-    top: 60px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    border-radius: 8px;
-    gap: 0.5rem;
-    list-style: none;
-    margin: 0;
-  }
-
-  .navbar #menu-toggle:checked + #hamburger + .nav-links {
-    display: flex;
-  }
-
-  .nav-links a {
-    font-size: 14px;
-    color: black;
-    text-decoration: none;
-  }
-
-  .nav-links a:hover {
-    color: #8C5B5E;
-  }
-
-  .search-icon {
-    font-size: 1rem;
-  }
-
-  /* Navbar resize */
-  .navbar {
-    padding: 0.5rem 1rem;
-  }
-
-  .site-title {
-    font-size: 24px;
-  }
-
-  /* homepage resize */
-  .home-main {
-    padding: 2rem 1rem;
-  }
-
-  .home-title {
-    font-size: 2rem;
-  }
-
-  .bookshelf {
-    gap: 0.5rem;
-    padding: 1.5rem 0;
-  }
-
-  .book {
-    width: 40px;
-    height: 150px;
-    font-size: 12px;
-  }
-
-  /* Book listing responsiveness */
-  .book-page {
-    padding: 1.5rem 1rem;
-  }
-
-  .book-list-title {
-    font-size: 2rem;
-  }
-
-  .book-header-section {
-    min-height: 250px;
-    padding: 1.5rem 0;
-    background-attachment: scroll;
-  }
-
-  .book-header-section::before {
-    background: rgba(255, 255, 255, 0.25);
-  }
-
-  .book-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .book-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-
-  .book-spine {
-    width: 50px;
-    height: 160px;
-    font-size: 12px;
-  }
-
-  /* filter and sort responsive */
-  .filter-sort-container {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .filter-section, .sort-section, .search-section {
-    min-width: 100%;
-  }
-
-  .search-section input[type="text"] {
-    min-width: 100%;
-  }
-
-  /* Journaling popup resize */
-  .book-journal-box {
-    width: 90%;
-    max-width: 500px;
-    height: auto;
-    min-height: 400px;
-    margin: 1rem auto;
-    padding: 1rem;
-  }
-
-  .book-title {
-    font-size: 28px;
-    margin-bottom: 15px;
-  }
-
-  .star-rating {
-    font-size: 20px;
-  }
-
-  .rating-area {
-    margin-left: 20px;
-  }
-
-  .quote-btn {
-    margin-left: 20px;
-    font-size: 14px;
-    padding: 6px 12px;
-  }
-
-  .quote-box1,
-  .quote-box2 {
-    width: 150px;
-    height: 40px;
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-
-  .quote-box1 {
-    top: 70px;
-  }
-
-  .quote-box2 {
-    top: 120px;
-  }
-
-  .thoughts-area {
-    width: 90%;
-    font-size: 18px;
-    padding: 12px;
-  }
-
-  .quote-popup {
-    height: auto;
-    min-height: 250px;
-  }
-}
-
-/*  xsmall screens */
-@media (max-width: 480px) {
-  .navbar {
-    padding: 0.5rem;
-  }
-
-  .nav-right {
-    gap: 1rem;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .home-title {
-    font-size: 1.8rem;
-  }
-
-  .home-subtitle {
-    font-size: 1rem;
-  }
-
-  .book-journal-box {
-    width: 95%;
-    margin: 0.5rem auto;
-    padding: 0.8rem;
-  }
-
-  .book-title {
-    font-size: 24px;
-  }
-
-  .rating-area {
-    margin-left: 10px;
-  }
-
-  .quote-btn {
-    margin-left: 10px;
-  }
-
-  .quote-box1,
-  .quote-box2 {
-    width: 120px;
-    height: 35px;
-    font-size: 11px;
-  }
-
-  .book-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-/* large screens */
-@media (min-width: 1200px) {
-  .book-content {
-    max-width: 1400px;
-  }
-
-  .book-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-
-  .book-journal-box {
-    width: 800px;
-    height: 500px;
-  }
-
-  .book-title {
-    font-size: 45px;
-  }
-
-  .home-title {
-    font-size: 3rem;
-  }
-
-  .book-list-title {
-    font-size: 3rem;
-  }
-}
 
 /* Book Entry Page */
 .book-entry-page {
@@ -1424,6 +1115,265 @@ h1 {
   background: #c9302c;
 }
 
+@media (max-width: 768px) {
+  /* navbar hamburger  */
+  .navbar #hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    z-index: 1;
+    display: none;
+    flex-direction: column;
+    background: #f5f5f5;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+  }
+
+  .navbar #menu-toggle:checked + #hamburger + .nav-links {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+  }
+
+  .nav-links a:hover {
+    color: #8C5B5E;
+  }
+
+  .search-icon {
+    font-size: 1rem;
+  }
+
+  /* Navbar resize */
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .site-title {
+    font-size: 24px;
+  }
+
+  /* homepage resize */
+  .home-main {
+    padding: 2rem 1rem;
+  }
+
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .bookshelf {
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .book {
+    width: 40px;
+    height: 150px;
+    font-size: 12px;
+  }
+
+  /* Book listing responsiveness */
+  .book-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .book-list-title {
+    font-size: 2rem;
+  }
+
+  .book-header-section {
+    min-height: 250px;
+    padding: 1.5rem 0;
+    background-attachment: scroll;
+  }
+
+  .book-header-section::before {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .book-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .book-spine {
+    width: 50px;
+    height: 160px;
+    font-size: 12px;
+  }
+
+  /* filter and sort responsive */
+  .filter-sort-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .filter-section, .sort-section, .search-section {
+    min-width: 100%;
+  }
+
+  .search-section input[type="text"] {
+    min-width: 100%;
+  }
+
+  /* Journaling popup resize */
+  .book-journal-box {
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    min-height: 400px;
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+
+  .book-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .star-rating {
+    font-size: 20px;
+  }
+
+  .rating-area {
+    margin-left: 20px;
+  }
+
+  .quote-btn {
+    margin-left: 20px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .quote-box1,
+  .quote-box2 {
+    width: 150px;
+    height: 40px;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  .quote-box1 {
+    top: 70px;
+  }
+
+  .quote-box2 {
+    top: 120px;
+  }
+
+  .thoughts-area {
+    width: 90%;
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .quote-popup {
+    height: auto;
+    min-height: 250px;
+  }
+}
+
+/*  xsmall screens */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .nav-right {
+    gap: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .home-title {
+    font-size: 1.8rem;
+  }
+
+  .home-subtitle {
+    font-size: 1rem;
+  }
+
+  .book-journal-box {
+    width: 95%;
+    margin: 0.5rem auto;
+    padding: 0.8rem;
+  }
+
+  .book-title {
+    font-size: 24px;
+  }
+
+  .rating-area {
+    margin-left: 10px;
+  }
+
+  .quote-btn {
+    margin-left: 10px;
+  }
+
+  .quote-box1,
+  .quote-box2 {
+    width: 120px;
+    height: 35px;
+    font-size: 11px;
+  }
+
+  .book-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* large screens */
+@media (min-width: 1200px) {
+  .book-content {
+    max-width: 1400px;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .book-journal-box {
+    width: 800px;
+    height: 500px;
+  }
+
+  .book-title {
+    font-size: 45px;
+  }
+
+  .home-title {
+    font-size: 3rem;
+  }
+
+  .book-list-title {
+    font-size: 3rem;
+  }
+}
+
+
 /* Responsive Design for Book Details */
 @media (max-width: 768px) {
   .book-details {
@@ -1438,5 +1388,62 @@ h1 {
 
   .book-info .book-title {
     font-size: 2rem;
+  }
+}
+
+/* media screens: */
+@media (min-width: 768px) {
+  #hamburger {
+    display: none;
+  }
+
+  .progress-heading {
+    font-size: 30px;
+  }
+
+  .gt-links {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    background: none;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .gt-links a {
+    color: #3b2f2f;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .gt-progress, .gt-goals {
+    width: 80%;
+    max-width: 900px;
+    margin: 40px auto;
+  }
+
+  .progress-percent {
+    display: block;
+  }
+
+  .progress-bar {
+    height: 35px;
+  }
+
+  .goal-item {
+    padding: 16px 24px;
+    font-size: 18px;
+  }
+
+  .goals-header h2 {
+    font-size: 24px;
+  }
+
+  .add-goal-btn {
+    padding: 10px 10px;
+    font-size: 16px;
   }
 }

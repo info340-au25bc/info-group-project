@@ -1,6 +1,7 @@
 import React from 'react'; //import React Component
 
 import NavBar from "./components/navbar";
+import HomePage from './components/home';
 import BookListing from './components/BookListing';
 import JournallingPage from './components/JournallingPage';
 import GoalsPage from './components/goaltracking';
@@ -15,6 +16,7 @@ function App(props) {
     <div>
       <NavBar />
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/allbooks" element={<BookListing />} />
         <Route path="/bookentry" element={<BookEntry />} />
         <Route path="/book/:bookId" element={<BookDetails />} />

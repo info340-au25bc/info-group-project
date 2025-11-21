@@ -10,11 +10,15 @@ export default function NavBar() {
         <Link to="/" className="site-title-link"><h1 className="site-title">BookBuddy</h1></Link>
       </div>
       <div className="nav-right">
+        <input type="checkbox" id="menu-toggle"/>
+      <label for="menu-toggle" id="hamburger" aria-label="Open Menu">
+        <span class="fa fa-bars"></span>
+      </label>
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/allbooks">All Books</Link></li>
           <li><Link to="/goals">Goals</Link></li>
-          <li><Link to="/search" className="search-icon">🔍</Link></li>
+         { /* <li><Link to="/search" className="search-icon">🔍</Link></li> */ }
         </ul>
       </div>
     </nav>
