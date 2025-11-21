@@ -13,8 +13,8 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* Image Section */}
       <section className="home-image">
+        <h2 className="visually-hidden">Bookshelf Illustration</h2>
         <img
           src="img/bookshelf.jpg"
           alt="Bookshelf illustration"

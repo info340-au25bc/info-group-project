@@ -24,7 +24,7 @@ function ProgressBar({ completed, total }) {
     <section className="gt-progress">
       {/* title */}
       <h2 className="home-title">Prog<span>ress</span></h2>
-      <p className="home-subtitle" style={{ color: "#969198" }}>A tracker to help you read more and reach your goals.</p>
+      <p className="home-subtitle" style={{ color: "#5a5760" }}>A tracker to help you read more and reach your goals.</p>
 
       {/* show numeric progress */}
       <p className="progress-percent">Goal Progress: {percent}%</p>

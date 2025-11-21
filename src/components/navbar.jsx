@@ -6,7 +6,7 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <img src="/img/BookBuddy Logo.png" alt="BookBuddy Logo" className="logo" />
+        <img src="/img/BookBuddyLogo.png" alt="BookBuddy Logo" className="logo" />
         <Link to="/" className="site-title-link"><h1 className="site-title">BookBuddy</h1></Link>
       </div>
       <div className="nav-right">
