@@ -918,26 +918,6 @@ h1 {
   min-width: 200px;
 }
 
-.apply-filter-btn {
-  background: #8c5b5e;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 24px;
-  font-family: "Nunito Sans", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  align-self: flex-end;
-  height: fit-content;
-  margin-bottom: 0.5rem;
-}
-
-.apply-filter-btn:hover {
-  background: rgb(203, 166, 166);
-}
-
 @media (max-width: 768px) {
   /* navbar hamburger  */
   .navbar #hamburger {

@@ -5,8 +5,8 @@ export default function BookDetails() {
   const { bookId } = useParams();
   const navigate = useNavigate();
 
-  // placeholder rn
-  const book = {
+  // Placeholder book data (in a real app, this would come from a database)
+  const currentBook = {
     title: "Book Title",
     author: "Author Name",
     genre: "Fiction",
@@ -16,48 +16,49 @@ export default function BookDetails() {
     notes: "What an interesting book! I particularly enjoyed when the author mentioned... Insert \"quote from book.\""
   };
 
-  const handleEdit = () => {
-    console.log("Edit book:", bookId);
-  };
 
-  const handleDelete = () => {
+  function clickEditButton() {
+    console.log("Edit book:", bookId);
+  }
+
+  function clickDeleteButton() {
     console.log("Delete book:", bookId);
     navigate('/allbooks');
-  };
+  }
 
-  const handleJournal = () => {
+  function clickJournalButton() {
     navigate('/journal');
-  };
+  }
 
   return (
     <main className="book-details">
       <div className="book-cover">
-        <img src={book.cover} alt={`${book.title} cover`} />
+        <img src={currentBook.cover} alt={`${currentBook.title} cover`} />
       </div>
 
       <div className="book-info">
         <button className="close-btn-details" onClick={() => navigate('/allbooks')}>×</button>
-        <h2 className="book-title">{book.title}</h2>
-        <p className="book-author"><i>{book.author}</i></p>
-        <p className="book-genre"><strong>Genre:</strong> {book.genre}</p>
-        <p className="book-status"><strong>Status:</strong> {book.status}</p>
+        <h2 className="book-title">{currentBook.title}</h2>
+        <p className="book-author"><i>{currentBook.author}</i></p>
+        <p className="book-genre"><strong>Genre:</strong> {currentBook.genre}</p>
+        <p className="book-status"><strong>Status:</strong> {currentBook.status}</p>
 
         <div className="book-description">
           <h3>Description</h3>
-          <p>{book.description}</p>
+          <p>{currentBook.description}</p>
         </div>
 
         <div className="book-notes">
           <h3>Notes</h3>
-          <p>{book.notes}</p>
+          <p>{currentBook.notes}</p>
         </div>
 
         <div className="book-actions">
           <div className="primary-actions">
-            <button className="edit-btn" onClick={handleEdit}>Edit Book</button>
-            <button className="journal-btn" onClick={handleJournal}>Journal</button>
+            <button className="edit-btn" onClick={clickEditButton}>Edit Book</button>
+            <button className="journal-btn" onClick={clickJournalButton}>Journal</button>
           </div>
-          <button className="delete-btn" onClick={handleDelete}>Delete</button>
+          <button className="delete-btn" onClick={clickDeleteButton}>Delete</button>
         </div>
       </div>
     </main>

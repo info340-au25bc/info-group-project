@@ -29,36 +29,43 @@ function BookCard({ book }) {
 
 export default function BookListing() {
   // state
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [sortBy, setSortBy] = useState('title');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedSortOption, setSelectedSortOption] = useState('title');
+  const [searchText, setSearchText] = useState('');
   
-  // filter 
-  let filteredBooks = BOOKS_DATA.filter((book) => {
-    if (statusFilter === 'all') return true;
-    return book.status === statusFilter;
-  });
+  // Step 1: filter
+  let booksToDisplay = BOOKS_DATA;
   
-  // search
-  if (searchQuery.trim() !== '') {
-    filteredBooks = filteredBooks.filter((book) => {
-      const query = searchQuery.toLowerCase();
-      return book.title.toLowerCase().includes(query) || 
-             book.author.toLowerCase().includes(query);
+  if (selectedStatus !== 'all') {
+    booksToDisplay = booksToDisplay.filter((book) => {
+      return book.status === selectedStatus;
     });
   }
   
-  // book sortation
-  const sortedBooks = [...filteredBooks].sort((a, b) => {
-    if (sortBy === 'title') {
-      return a.title.localeCompare(b.title);
-    } else if (sortBy === 'author') {
-      return a.author.localeCompare(b.author);
-    } else if (sortBy === 'status') {
-      return a.status.localeCompare(b.status);
-    }
-    return 0;
-  });
+  // Step 2: Filter books by search text
+  if (searchText !== '') {
+    booksToDisplay = booksToDisplay.filter((book) => {
+      const lowerCaseSearch = searchText.toLowerCase();
+      const titleMatch = book.title.toLowerCase().includes(lowerCaseSearch);
+      const authorMatch = book.author.toLowerCase().includes(lowerCaseSearch);
+      return titleMatch || authorMatch;
+    });
+  }
+  
+  // sortation books
+  if (selectedSortOption === 'title') {
+    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+      return bookA.title.localeCompare(bookB.title);
+    });
+  } else if (selectedSortOption === 'author') {
+    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+      return bookA.author.localeCompare(bookB.author);
+    });
+  } else if (selectedSortOption === 'status') {
+    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+      return bookA.status.localeCompare(bookB.status);
+    });
+  }
   
   return (
     <main className="book-page">
@@ -79,8 +86,8 @@ export default function BookListing() {
             <label htmlFor="status-filter">Filter by Status:</label>
             <select 
               id="status-filter" 
-              value={statusFilter} 
-              onChange={(e) => setStatusFilter(e.target.value)}
+              value={selectedStatus} 
+              onChange={(e) => setSelectedStatus(e.target.value)}
             >
               <option value="all">All Books</option>
               <option value="reading">Currently Reading</option>
@@ -93,8 +100,8 @@ export default function BookListing() {
             <label htmlFor="sort-options">Sort by:</label>
             <select 
               id="sort-options" 
-              value={sortBy} 
-              onChange={(e) => setSortBy(e.target.value)}
+              value={selectedSortOption} 
+              onChange={(e) => setSelectedSortOption(e.target.value)}
             >
               <option value="title">Title (A-Z)</option>
               <option value="author">Author (A-Z)</option>
@@ -108,16 +115,16 @@ export default function BookListing() {
               type="text" 
               id="book-search" 
               placeholder="Search books or authors..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
         </div>
         
         {/* Book Grid - using .map() to display filtered and sorted books */}
         <div className="book-grid">
-          {sortedBooks.length > 0 ? (
-            sortedBooks.map((book) => (
+          {booksToDisplay.length > 0 ? (
+            booksToDisplay.map((book) => (
               <BookCard key={book.id} book={book} />
             ))
           ) : (

@@ -4,29 +4,29 @@ import { useNavigate } from 'react-router';
 function BookEntry () {
     const navigate = useNavigate();
     
-    // form state
-    const [bookTitle, setBookTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [genre, setGenre] = useState('');
-    const [readingStatus, setReadingStatus] = useState('');
+    // state for form
+    const [bookTitleInput, setBookTitleInput] = useState('');
+    const [authorInput, setAuthorInput] = useState('');
+    const [genreInput, setGenreInput] = useState('');
+    const [statusInput, setStatusInput] = useState('');
 
-    const entrySubmit = (event) => {
+    function handleFormSubmit(event) {
         event.preventDefault();
         
-        // new book object from  data
-        const newBook = {
-            id: Date.now(), // ID
-            title: bookTitle,
-            author: author,
-            genre: genre,
-            status: readingStatus,
+        // new book from data
+        const newBookData = {
+            id: Date.now(),
+            title: bookTitleInput,
+            author: authorInput,
+            genre: genreInput,
+            status: statusInput,
             color: '#8C5B5E'
         };
         
         // this would be saved to a database or global state
-        console.log('New book added:', newBook);
+        console.log('New book added:', newBookData);
         navigate('/allbooks');
-    };
+    }
 
     return (
         <main className="book-entry-page">
@@ -35,15 +35,15 @@ function BookEntry () {
                 <p className="book-entry-subtitle">Share your next great read with your collection.</p>
             </section>
             
-            <form className="book-entry-form" onSubmit={entrySubmit}>
+            <form className="book-entry-form" onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <label htmlFor="book-title">Book Title: <span className="required">*</span></label>
                     <input 
                         type="text" 
                         id="book-title" 
                         placeholder="Enter Book Title" 
-                        value={bookTitle}
-                        onChange={(e) => setBookTitle(e.target.value)}
+                        value={bookTitleInput}
+                        onChange={(e) => setBookTitleInput(e.target.value)}
                         required
                     />
                 </div>
@@ -54,8 +54,8 @@ function BookEntry () {
                         type="text" 
                         id="author" 
                         placeholder="Enter Author Name" 
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
+                        value={authorInput}
+                        onChange={(e) => setAuthorInput(e.target.value)}
                     />
                 </div>
                 
@@ -65,8 +65,8 @@ function BookEntry () {
                         type="text" 
                         id="genre" 
                         placeholder="Enter Genre" 
-                        value={genre}
-                        onChange={(e) => setGenre(e.target.value)}
+                        value={genreInput}
+                        onChange={(e) => setGenreInput(e.target.value)}
                     />
                 </div>
                 
@@ -74,8 +74,8 @@ function BookEntry () {
                     <label htmlFor="reading-status">Reading Status: <span className="required">*</span></label>
                     <select 
                         id="reading-status" 
-                        value={readingStatus}
-                        onChange={(e) => setReadingStatus(e.target.value)}
+                        value={statusInput}
+                        onChange={(e) => setStatusInput(e.target.value)}
                         required
                     >
                         <option value="">Select Status</option>
