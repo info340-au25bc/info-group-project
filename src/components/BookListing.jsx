@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router';
 import { BOOKS_DATA } from '../data/booksData';
 
 function BookCard({ book }) {
@@ -9,22 +10,62 @@ function BookCard({ book }) {
   };
   
   return (
-    <div className="book-card">
-      <div className="book-spine" style={{ backgroundColor: book.color }}>
-        {book.title}
+    <Link to={`/book/${book.id}`} className="book-card-link">
+      <div className="book-card">
+        <div className="book-spine" style={{ backgroundColor: book.color }}>
+          {book.title}
+        </div>
+        <div className="book-info">
+          <h3>{book.title}</h3>
+          <p>{book.author}</p>
+          <span className={`book-status ${book.status === 'completed' ? 'completed' : ''}`}>
+            {statuses[book.status]}
+          </span>
+        </div>
       </div>
-      <div className="book-info">
-        <h3>{book.title}</h3>
-        <p>{book.author}</p>
-        <span className={`book-status ${book.status === 'completed' ? 'completed' : ''}`}>
-          {statuses[book.status]}
-        </span>
-      </div>
-    </div>
+    </Link>
   );
 }
 
 export default function BookListing() {
+  // state
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedSortOption, setSelectedSortOption] = useState('title');
+  const [searchText, setSearchText] = useState('');
+  
+  // Step 1: filter
+  let booksToDisplay = BOOKS_DATA;
+  
+  if (selectedStatus !== 'all') {
+    booksToDisplay = booksToDisplay.filter((book) => {
+      return book.status === selectedStatus;
+    });
+  }
+  
+  // Step 2: Filter books by search text
+  if (searchText !== '') {
+    booksToDisplay = booksToDisplay.filter((book) => {
+      const lowerCaseSearch = searchText.toLowerCase();
+      const titleMatch = book.title.toLowerCase().includes(lowerCaseSearch);
+      const authorMatch = book.author.toLowerCase().includes(lowerCaseSearch);
+      return titleMatch || authorMatch;
+    });
+  }
+  
+  // sortation books
+  if (selectedSortOption === 'title') {
+    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+      return bookA.title.localeCompare(bookB.title);
+    });
+  } else if (selectedSortOption === 'author') {
+    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+      return bookA.author.localeCompare(bookB.author);
+    });
+  } else if (selectedSortOption === 'status') {
+    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+      return bookA.status.localeCompare(bookB.status);
+    });
+  }
   
   return (
     <main className="book-page">
@@ -36,14 +77,18 @@ export default function BookListing() {
       <section className="book-content">
         <div className="book-header">
           <h2 className="collection-heading">My Book Collection</h2>
-          <a href="BookEntry.html" className="add-book-btn">+ Add New Book</a>
+          <Link to="/bookentry" className="add-book-btn">+ Add New Book</Link>
         </div>
         
-        {/* filter or sort  */}
+        {/* filter or sort*/}
         <div className="filter-sort-container">
           <div className="filter-section">
             <label htmlFor="status-filter">Filter by Status:</label>
-            <select id="status-filter">
+            <select 
+              id="status-filter" 
+              value={selectedStatus} 
+              onChange={(e) => setSelectedStatus(e.target.value)}
+            >
               <option value="all">All Books</option>
               <option value="reading">Currently Reading</option>
               <option value="completed">Completed</option>
@@ -53,25 +98,38 @@ export default function BookListing() {
           
           <div className="sort-section">
             <label htmlFor="sort-options">Sort by:</label>
-            <select id="sort-options">
+            <select 
+              id="sort-options" 
+              value={selectedSortOption} 
+              onChange={(e) => setSelectedSortOption(e.target.value)}
+            >
               <option value="title">Title (A-Z)</option>
               <option value="author">Author (A-Z)</option>
               <option value="status">Reading Status</option>
-              <option value="date-added">Date Added</option>
             </select>
           </div>
           
           <div className="search-section">
             <label htmlFor="book-search">Search:</label>
-            <input type="text" id="book-search" placeholder="Search books or authors..." />
+            <input 
+              type="text" 
+              id="book-search" 
+              placeholder="Search books or authors..." 
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
           </div>
         </div>
         
-        {/* Book Grid - using .map() to display books */}
+        {/* Book Grid - using .map() to display filtered and sorted books */}
         <div className="book-grid">
-          {BOOKS_DATA.map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))}
+          {booksToDisplay.length > 0 ? (
+            booksToDisplay.map((book) => (
+              <BookCard key={book.id} book={book} />
+            ))
+          ) : (
+            <p className="no-books-message">No books found matching your search.</p>
+          )}
         </div>
       </section>
     </main>
