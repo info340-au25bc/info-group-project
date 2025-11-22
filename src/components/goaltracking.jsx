@@ -95,6 +95,7 @@ function GoalsPage() {
             <img src="/img/target.png" alt="target icon" className="gt-target" />
             My Reading Goals
           </h2>
+        <button className="add-goal-btn">+ Add Goal</button>
         </div>
 
         <div>
