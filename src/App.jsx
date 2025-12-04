@@ -22,6 +22,7 @@ function App(props) {
         <Route path="/book/:bookId" element={<BookDetails />} />
         <Route path="/journal" element={<JournallingPage />} />
         <Route path="/goals" element={<GoalsPage />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
       <Footer />
     </div>
