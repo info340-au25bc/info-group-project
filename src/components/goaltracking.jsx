@@ -92,7 +92,6 @@ function GoalsPage() {
       <section className="gt-goals">
         <div className="goals-header">
           <h2 className="gt-goals-title">
-            <img src="/img/target.png" alt="target icon" className="gt-target" />
             My Reading Goals
           </h2>
         <button className="add-goal-btn">+ Add Goal</button>
