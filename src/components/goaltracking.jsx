@@ -1,4 +1,5 @@
 import React, { useState } from 'react'; //import React Component
+import { getDatabase, ref, onValue, remove, set, push } from 'firebase/database';
 
 // hardcoded goals:
 const fakeGoals = [
@@ -59,7 +60,7 @@ function GoalItem({ goal, onToggle }) {
 }
 
 // GoalsPage is the main page showing progress and goals
-function GoalsPage() {
+export default function GoalsPage() {
   // state: list of goals
   const [goals, setGoals] = useState(fakeGoals);
 
@@ -106,5 +107,3 @@ function GoalsPage() {
     </div>
   );
 }
-
-export default GoalsPage;
