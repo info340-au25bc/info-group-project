@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { BOOKS_DATA } from '../data/booksData';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 function BookCard({ book }) {
   const statuses = {
@@ -28,13 +28,45 @@ function BookCard({ book }) {
 }
 
 export default function BookListing() {
-  // state
+
+  const [allBooks, setAllBooks] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedSortOption, setSelectedSortOption] = useState('title');
   const [searchText, setSearchText] = useState('');
   
-  // Step 1: filter
-  let booksToDisplay = BOOKS_DATA;
+  useEffect(() => {
+    const database = getDatabase();
+    const allBooksRef = ref(database, 'books');
+    
+    onValue(allBooksRef, (snapshot) => {
+      const firebaseData = snapshot.val();
+      
+      if (firebaseData) {
+        const bookKeys = Object.keys(firebaseData);
+        const bookArray = [];
+        
+        for (let i = 0; i < bookKeys.length; i++) {
+          const bookKey = bookKeys[i];
+          const bookData = firebaseData[bookKey];
+          const bookWithId = {
+            id: bookKey,
+            title: bookData.title,
+            author: bookData.author,
+            genre: bookData.genre,
+            status: bookData.status,
+            color: bookData.color
+          };
+          bookArray.push(bookWithId);
+        }
+        
+        setAllBooks(bookArray);
+      } else {
+        setAllBooks([]);
+      }
+    });
+  }, []);
+  
+  let booksToDisplay = allBooks;
   
   if (selectedStatus !== 'all') {
     booksToDisplay = booksToDisplay.filter((book) => {
@@ -42,7 +74,7 @@ export default function BookListing() {
     });
   }
   
-  // Step 2: Filter books by search text
+  // filter books by search text
   if (searchText !== '') {
     booksToDisplay = booksToDisplay.filter((book) => {
       const lowerCaseSearch = searchText.toLowerCase();

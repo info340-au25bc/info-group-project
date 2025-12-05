@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { getDatabase, ref, push } from 'firebase/database';
 
 function BookEntry () {
     const navigate = useNavigate();
@@ -13,9 +14,7 @@ function BookEntry () {
     function handleFormSubmit(event) {
         event.preventDefault();
         
-        // new book from data
         const newBookData = {
-            id: Date.now(),
             title: bookTitleInput,
             author: authorInput,
             genre: genreInput,
@@ -23,8 +22,10 @@ function BookEntry () {
             color: '#8C5B5E'
         };
         
-        // this would be saved to a database or global state
-        console.log('New book added:', newBookData);
+        const database = getDatabase();
+        const booksRefInDatabase = ref(database, 'books');
+        push(booksRefInDatabase, newBookData);
+        
         navigate('/allbooks');
     }
 
