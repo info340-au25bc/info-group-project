@@ -371,6 +371,62 @@ h1 {
   background-color: #b08b70;
 }
 
+.delete-goal-btn {
+  margin-left: auto;
+  background-color: #d47a7a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.delete-goal-btn:hover {
+  background-color: #bb6060;
+}
+
+.delete-goal-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+}
+
+.goal-item:hover .delete-goal-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.save-goal-btn {
+  background-color: #cca987;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.save-goal-btn:hover {
+  background-color: #b08b70;
+}
+
+.new-goal-item input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 15px;
+}
+
+.new-goal-item input[type="text"]:focus {
+  outline: none;
+  border-color: #b08b70;
+}
+
 /* progress bar */
 .progress-heading {
   font-size: 35px;
