@@ -20,7 +20,7 @@ function App(props) {
         <Route path="/allbooks" element={<BookListing />} />
         <Route path="/bookentry" element={<BookEntry />} />
         <Route path="/book/:bookId" element={<BookDetails />} />
-        <Route path="/journal" element={<JournallingPage />} />
+        <Route path="/journal/:bookId" element={<JournallingPage />} />
         <Route path="/goals" element={<GoalsPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>

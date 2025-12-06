@@ -51,7 +51,7 @@ h1 {
 .book-journal-box {
     width: 700px;
     height: auto;
-    min-height: 550px;
+    min-height: 150px;
     flex-shrink: 0;
     border-radius: 20px;
     border: 1px solid #000;
@@ -87,6 +87,18 @@ h1 {
     margin-bottom: 10px;
     margin-top: 20px;
     text-align: center;
+}
+
+.book-journal-box .book-title {
+    color: #8c5b5e;
+    font-family: "Raleway", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .rating-quotes-row {
@@ -156,6 +168,7 @@ h1 {
     font-size: 15px;
     color: #666;
     text-align: center;
+    margin-top: 30px;
     margin-bottom: 10px;
     cursor: default;
     width: auto;
@@ -223,6 +236,15 @@ h1 {
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    transition: all 0.2s ease;
+}
+
+.quote-box1:hover,
+.quote-box2:hover {
+    background: #e8e9ea;
+    border-color: #947A61;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .thoughts-area {
@@ -261,6 +283,27 @@ h1 {
 .add-quote-button:hover,
 .add-book-button:hover {
     background: rgb(203, 166, 166);
+}
+
+.delete-book-button {
+    background: #8c5b5e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    align-self: center;
+    transition: all 0.2s ease;
+}
+
+.delete-book-button:hover {
+    background: #a94442;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .footer-content {
@@ -902,6 +945,7 @@ h1 {
   background: white;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .form-group {

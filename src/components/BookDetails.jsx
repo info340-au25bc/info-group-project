@@ -1,61 +1,142 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
+import { getDatabase, ref, onValue, update, remove } from 'firebase/database';
 
 export default function BookDetails() {
   const { bookId } = useParams();
   const navigate = useNavigate();
 
-  // Placeholder book data (in a real app, this would come from a database)
-  const currentBook = {
-    title: "Book Title",
-    author: "Author Name",
-    genre: "Fiction",
-    status: "Currently Reading",
-    cover: "/img/book_cover.jpg",
-    description: "A novel set in...",
-    notes: "What an interesting book! I particularly enjoyed when the author mentioned... Insert \"quote from book.\""
-  };
+  const [bookInfo, setBookInfo] = useState(null);
+  const [editingMode, setEditingMode] = useState(false);
+  const [descriptionText, setDescriptionText] = useState('');
+  const [notesText, setNotesText] = useState('');
+  const [dateInput, setDateInput] = useState('');
 
+  useEffect(() => {
+    const database = getDatabase();
+    const bookLocation = 'books/' + bookId;
+    const bookRefInDatabase = ref(database, bookLocation);
+    
+    onValue(bookRefInDatabase, (snapshot) => {
+      const dataFromFirebase = snapshot.val();
+      if (dataFromFirebase) {
+        setBookInfo(dataFromFirebase);
+        
+        if (dataFromFirebase.description) {
+          setDescriptionText(dataFromFirebase.description);
+        } else {
+          setDescriptionText('');
+        }
+        
+        if (dataFromFirebase.notes) {
+          setNotesText(dataFromFirebase.notes);
+        } else {
+          setNotesText('');
+        }
+        
+        if (dataFromFirebase.date) {
+          setDateInput(dataFromFirebase.date);
+        } else {
+          setDateInput('');
+        }
+      }
+    });
+  }, [bookId]);
+
+  function handleDateChange(event) {
+    const newDate = event.target.value;
+    setDateInput(newDate);
+    
+    const database = getDatabase();
+    const bookLocation = 'books/' + bookId;
+    const bookRefInDatabase = ref(database, bookLocation);
+    update(bookRefInDatabase, { date: newDate });
+  }
 
   function clickEditButton() {
-    console.log("Edit book:", bookId);
+    setEditingMode(true);
+  }
+
+  function clickSaveButton() {
+    const database = getDatabase();
+    const bookLocation = 'books/' + bookId;
+    const bookRefInDatabase = ref(database, bookLocation);
+    
+    const updatedData = {
+      description: descriptionText,
+      notes: notesText
+    };
+    
+    update(bookRefInDatabase, updatedData);
+    setEditingMode(false);
   }
 
   function clickDeleteButton() {
-    console.log("Delete book:", bookId);
+    const database = getDatabase();
+    const bookLocation = 'books/' + bookId;
+    const bookRefInDatabase = ref(database, bookLocation);
+    remove(bookRefInDatabase);
     navigate('/allbooks');
   }
 
   function clickJournalButton() {
-    navigate('/journal');
+    navigate('/journal/' + bookId);
+  }
+
+  if (!bookInfo) {
+    return <div>Loading...</div>;
   }
 
   return (
     <main className="book-details">
-      <div className="book-cover">
-        <img src={currentBook.cover} alt={`${currentBook.title} cover`} />
-      </div>
-
       <div className="book-info">
         <button className="close-btn-details" onClick={() => navigate('/allbooks')}>×</button>
-        <h2 className="book-title">{currentBook.title}</h2>
-        <p className="book-author"><i>{currentBook.author}</i></p>
-        <p className="book-genre"><strong>Genre:</strong> {currentBook.genre}</p>
-        <p className="book-status"><strong>Status:</strong> {currentBook.status}</p>
+        <input 
+          type="date" 
+          className="date-input" 
+          value={dateInput}
+          onChange={handleDateChange}
+        />
+        <h2 className="book-title">{bookInfo.title}</h2>
+        <p className="book-author"><i>{bookInfo.author}</i></p>
+        <p className="book-genre"><strong>Genre:</strong> {bookInfo.genre || 'N/A'}</p>
+        <p className="book-status"><strong>Status:</strong> {bookInfo.status}</p>
 
         <div className="book-description">
           <h3>Description</h3>
-          <p>{currentBook.description}</p>
+          {editingMode ? (
+            <textarea 
+              className="thoughts-area"
+              value={descriptionText}
+              onChange={(e) => setDescriptionText(e.target.value)}
+              placeholder="Add a description..."
+            />
+          ) : (
+            <p>{bookInfo.description || 'No description yet.'}</p>
+          )}
         </div>
 
         <div className="book-notes">
           <h3>Notes</h3>
-          <p>{currentBook.notes}</p>
+          {editingMode ? (
+            <textarea 
+              className="thoughts-area"
+              value={notesText}
+              onChange={(e) => setNotesText(e.target.value)}
+              placeholder="Add your notes..."
+            />
+          ) : (
+            <p>{bookInfo.notes || 'No notes yet.'}</p>
+          )}
         </div>
 
         <div className="book-actions">
           <div className="primary-actions">
-            <button className="edit-btn" onClick={clickEditButton}>Edit Book</button>
+            {editingMode ? (
+              <button className="edit-btn" onClick={clickSaveButton}>Save</button>
+            ) : (
+              <button className="edit-btn" onClick={clickEditButton}>Edit Book</button>
+            )}
             <button className="journal-btn" onClick={clickJournalButton}>Journal</button>
           </div>
           <button className="delete-btn" onClick={clickDeleteButton}>Delete</button>

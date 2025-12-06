@@ -37,6 +37,14 @@ function BookEntry () {
             </section>
             
             <form className="book-entry-form" onSubmit={handleFormSubmit}>
+                <button 
+                    type="button" 
+                    className="close-btn-details" 
+                    onClick={() => navigate('/allbooks')}
+                >
+                    ×
+                </button>
+                
                 <div className="form-group">
                     <label htmlFor="book-title">Book Title: <span className="required">*</span></label>
                     <input 
@@ -62,13 +70,27 @@ function BookEntry () {
                 
                 <div className="form-group">
                     <label htmlFor="genre">Genre:</label>
-                    <input 
-                        type="text" 
+                    <select 
                         id="genre" 
-                        placeholder="Enter Genre" 
                         value={genreInput}
                         onChange={(e) => setGenreInput(e.target.value)}
-                    />
+                    >
+                        <option value="">Select Genre</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Crime / Mystery">Crime / Mystery</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Science Fiction">Science Fiction</option>
+                        <option value="Thriller / Suspense">Thriller / Suspense</option>
+                        <option value="Young Adult">Young Adult</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Historical Fiction">Historical Fiction</option>
+                        <option value="Contemporary Fiction">Contemporary Fiction</option>
+                        <option value="Nonfiction (General)">Nonfiction (General)</option>
+                        <option value="Memoir / Biography">Memoir / Biography</option>
+                        <option value="Self-Help">Self-Help</option>
+                        <option value="Inspirational / Religious">Inspirational / Religious</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
                 
                 <div className="form-group">
