@@ -1,7 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 export default function HomePage() {
+  const [recentBooks, setRecentBooks] = useState([]);
+
+  useEffect(() => {
+    const database = getDatabase();
+    const allBooksRef = ref(database, 'books');
+
+    onValue(allBooksRef, (snapshot) => {
+      const fbData = snapshot.val();
+      
+      if (fbData) {
+        const keys = Object.keys(fbData);
+        const bookArray = [];
+        
+        for (let i = 0; i < keys.length; i++) {
+          const bookKey = keys[i];
+          const bookData = fbData[bookKey];
+          const bookObj = {
+            id: bookKey,
+            title: bookData.title,
+            author: bookData.author,
+            color: bookData.color
+          };
+          bookArray.push(bookObj);
+        }
+        
+        // Get the 5 most recent books (last 5 added)
+        const mostRecent = bookArray.slice(-5);
+        setRecentBooks(mostRecent);
+      } else {
+        setRecentBooks([]);
+      }
+    });
+  }, []);
+
   return (
     <main className="home-main">
       {/* Banner Section */}
@@ -28,31 +63,13 @@ export default function HomePage() {
         <h2 className="shelf-heading">Recently Added Books</h2>
 
         <div className="bookshelf">
-        <Link to={`/book/1`} className="book-card-link">
-          <div className="book" style={{ backgroundColor: "#947A61" }}>
-            Placeholder
-          </div>
-        </Link>
-        <Link to={`/book/2`} className="book-card-link">
-          <div className="book" style={{ backgroundColor: "#969198" }}>
-            Placeholder
-          </div>
-        </Link>
-        <Link to={`/book/3`} className="book-card-link">
-          <div className="book" style={{ backgroundColor: "#8C5B5E" }}>
-            Placeholder
-          </div>
-        </Link>
-        <Link to={`/book/4`} className="book-card-link">
-          <div className="book" style={{ backgroundColor: "#947A61" }}>
-            Placeholder
-          </div>
-        </Link>
-        <Link to={`/book/5`} className="book-card-link">
-          <div className="book" style={{ backgroundColor: "#373133" }}>
-            Placeholder
-          </div>
-        </Link>
+          {recentBooks.map((book) => (
+            <Link key={book.id} to={`/book/${book.id}`} className="book-card-link">
+              <div className="book" style={{ backgroundColor: book.color }}>
+                {book.title}
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
     </main>
