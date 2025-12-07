@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'; //import React Component
+import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, remove, set, push } from 'firebase/database';
 
 // progessbar: displays overall goal completion progress
+
 function ProgressBar({ completed, total }) {
   // calculate percentage
   let percent;
@@ -14,14 +15,13 @@ function ProgressBar({ completed, total }) {
 
   return (
     <section className="gt-progress">
-      {/* title */}
       <h2 className="home-title">Prog<span>ress</span></h2>
-      <p className="home-subtitle" style={{ color: "#5a5760" }}>A tracker to help you read more and reach your goals.</p>
+      <p className="home-subtitle" style={{ color: "#5a5760" }}>
+        A tracker to help you read more and reach your goals.
+      </p>
 
-      {/* show numeric progress */}
       <p className="progress-percent">Goal Progress: {percent}%</p>
 
-      {/* progress bar */}
       <div className="progress-bar">
         <div className="progress-fill" style={{ width: percent + "%" }}></div>
       </div>
@@ -32,28 +32,19 @@ function ProgressBar({ completed, total }) {
 
 // goalitem represents one goal
 function GoalItem({ goal, onToggle, onDelete }) {
-  // create unique id for checkbox
   const goalID = "goal-" + goal.id;
 
-  return(
+  return (
     <div className="goal-item">
-
-      {/* checkbox toggles completion: */}
       <input
         type="checkbox"
         id={goalID}
         checked={goal.completed}
         onChange={() => onToggle(goal.id, !goal.completed)}
       />
-
-      {/* label associated with checkbox */}
       <label htmlFor={goalID}>{goal.text}</label>
 
-      {/* delete button */}
-      <button
-        className="delete-goal-btn"
-        onClick={() => onDelete(goal.id)}
-      >
+      <button className="delete-goal-btn" onClick={() => onDelete(goal.id)}>
         X
       </button>
     </div>
@@ -62,202 +53,181 @@ function GoalItem({ goal, onToggle, onDelete }) {
 
 // GoalsPage is the main page showing progress and goals
 export default function GoalsPage() {
-  // state: list of goals from Firebase
+
   const [goals, setGoals] = useState([]);
-
-  // input for a new goal
   const [newGoalText, setNewGoalText] = useState("");
-
-  // add input
   const [creatingGoal, setCreatingGoal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // (1) read goals from firebase
+  // --- READ GOALS ---
   useEffect(() => {
-    // get the database
     const db = getDatabase();
-
-    // referenced the shared goals
     const goalsRef = ref(db, "goals/");
 
-    // use real time listener
-    const update = onValue(goalsRef, (snapshot) => {
-      // get raw obj
-      const data = snapshot.val();
+    const unsubscribe = onValue(
+      goalsRef,
+      (snapshot) => {
+        const data = snapshot.val();
 
-      // if no goals yet, set empty array
-      if (!data) {
-        setGoals([]);
-        return;
-      }
-
-      // convert object to array
-      const arr = Object.keys(data).map(function(key) {
-        const val = data[key];
-
-        // ensure fields exist
-
-        // goal text //
-        let textVal = "";
-        if (val && typeof val.text === "string") {
-          textVal = val.text;
+        if (!data) {
+          setGoals([]);
+          return;
         }
 
-        // completed boolean //
-        let completedVal = false;
-        if (val && typeof val.completed === "boolean") {
-          completedVal = val.completed;
-        }
-
-        // time check //
-        let createdAtVal = 0;
-        if (val && typeof val.createdAt === "number") {
-          createdAtVal = val.createdAt;
-        }
-
-        return {
+        const arr = Object.keys(data).map((key) => ({
           id: key,
-          text: textVal,
-          completed: completedVal,
-          createdAt: createdAtVal
-        };
-      });
+          text: data[key].text ?? "",
+          completed: data[key].completed ?? false,
+          createdAt: data[key].createdAt ?? 0
+        }));
 
-      // sort newest goal first using createdAt
-      arr.sort(function(a, b) {
-        return b.createdAt - a.createdAt;
-      });
+        arr.sort((a, b) => b.createdAt - a.createdAt);
+        setGoals(arr);
+      },
+      (error) => {
+        setErrorMessage("Failed to load goals: " + error.message);
+      }
+    );
 
-      // update state
-      setGoals(arr);
-    },
-    (err) => {
-      // error handler for onValue
-      console.error("Firebase onValue error:", err);
-    });
-
-    // return cleanup that detaches listener when component unmounts
-    return function cleanup() {
-      update();
-    };
+    return () => unsubscribe();
   }, []);
 
-  // (2) show input to add new goal
+  // --- ADD ---
   function handleAddGoal() {
     setCreatingGoal(true);
   }
 
-  // (3) confirm and push new goal to firebase
-  function handleConfirmNewGoal() {
-    // avoid empty strings
+  async function handleConfirmNewGoal() {
     if (newGoalText.trim() === "") {
       return;
     }
 
-    // get the database
     const db = getDatabase();
-
-    // referenced the shared goals
     const goalsRef = ref(db, "goals/");
-
-    // new goal obj
     const obj = {
       text: newGoalText.trim(),
       completed: false,
       createdAt: Date.now()
     };
 
-    // handling push error
-    push(goalsRef, obj).catch(function(err) {
-      console.error("Failed to push goal:", err);
-    });
+    setIsLoading(true);
+    setErrorMessage("");
 
-    // reset ui
-    setNewGoalText("");
-    setCreatingGoal(false);
+    try {
+      await push(goalsRef, obj);
+      setNewGoalText("");
+      setCreatingGoal(false);
+    } catch (err) {
+      console.error("Failed to add goal:", err);
+      setErrorMessage("Could not save your goal. Please check your connection or permissions.");
+    }
+
+    setIsLoading(false);
   }
 
-  // (4) delete goal from firebase
-  function handleDelete(id) {
-    // get the database
+  // --- DELETE ---
+  async function handleDelete(id) {
     const db = getDatabase();
-
-    // referenced the shared goals
     const goalsRef = ref(db, "goals/" + id);
 
-    // remove returns a promise
-    remove(goalsRef).catch(function(err) {
-      console.error("Failed to delete:", err);
-    });
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      await remove(goalsRef);
+    } catch (err) {
+      setErrorMessage("Failed to delete goal: " + err.message);
+    }
+
+    setIsLoading(false);
   }
 
-  // (5) toggle completed on firebase
- function handleToggle(id, newValue) {
-  const db = getDatabase();
-  const completedRef = ref(db, "goals/" + id + "/completed");
+  // --- TOGGLE ---
+  async function handleToggle(id, newValue) {
+    const db = getDatabase();
+    const completedRef = ref(db, "goals/" + id + "/completed");
 
-  set(completedRef, newValue).catch(function(err) {
-    console.error("Failed to update completed:", err);
-  });
-}
+    setIsLoading(true);
+    setErrorMessage("");
 
-  // (6) when click enter, the goal is saved
-  function handleEnter(e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    handleConfirmNewGoal();
+    try {
+      await set(completedRef, newValue);
+    } catch (err) {
+      setErrorMessage("Failed to update goal: " + err.message);
+    }
+
+    setIsLoading(false);
   }
-}
 
-  // compute number completed for progressbar
-  let completedTotal = 0;
-   {
-    // manual loop instead of functional helpers for clarity
-    let i = 0;
-    while (i < goals.length) {
-      if (goals[i].completed === true) {
-        completedTotal = completedTotal + 1;
-      }
-      i = i + 1;
+  // --- KEY HANDLING ---
+  function handleKeyDown(e) {
+    if (e.key === "Escape") {
+      setCreatingGoal(false);
+      setNewGoalText("");
+    }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleConfirmNewGoal();
     }
   }
 
+  // --- COUNT COMPLETED ---
+  let completedTotal = goals.filter(g => g.completed).length;
+
   return (
     <div>
+      {errorMessage && (
+        <div className="error-banner">
+          {errorMessage}
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="loading-banner">
+          Working…
+        </div>
+      )}
+
       <ProgressBar completed={completedTotal} total={goals.length} />
 
       <section className="gt-goals">
         <div className="goals-header">
-          <h2 className="gt-goals-title">
-            My Reading Goals
-          </h2>
-        <button className="add-goal-btn" onClick={handleAddGoal}>+ Add Goal</button>
+          <h2 className="gt-goals-title">My Reading Goals</h2>
+          <button className="add-goal-btn" onClick={handleAddGoal}>+ Add Goal</button>
         </div>
 
-        {/* show new goal input row */}
-        {creatingGoal === true && (
+        {creatingGoal && (
           <div className="goal-item new-goal-item">
             <input
               type="text"
               placeholder="Enter a new goal"
               value={newGoalText}
               onChange={(e) => setNewGoalText(e.target.value)}
-              onKeyDown={handleEnter}
+              onKeyDown={handleKeyDown}
             />
-            <button onClick={handleConfirmNewGoal} className="save-goal-btn">Save</button>
+            <button className="save-goal-btn" onClick={handleConfirmNewGoal}>Save</button>
+            <button
+              className="cancel-goal-btn"
+              onClick={() => {
+                setCreatingGoal(false);
+                setNewGoalText("");
+              }}
+            >
+              ✖
+            </button>
           </div>
         )}
 
         <div>
-          {goals.map(function(goal) {
-            return (
-              <GoalItem
-                key={goal.id}
-                goal={goal}
-                onToggle={handleToggle}
-                onDelete={handleDelete}
-              />
-            );
-          })}
+          {goals.map((goal) => (
+            <GoalItem
+              key={goal.id}
+              goal={goal}
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+            />
+          ))}
         </div>
       </section>
     </div>
