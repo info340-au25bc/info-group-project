@@ -8,7 +8,7 @@ function BookCard({ book }) {
     "completed": "Completed",
     "want-to-read": "Want to Read"
   };
-  
+
   return (
     <Link to={`/book/${book.id}`} className="book-card-link">
       <div className="book-card">
@@ -34,18 +34,22 @@ export default function BookListing() {
   const [sortBy, setSortBy] = useState('title');
   const [searchText, setSearchText] = useState('');
   const [tagFilter, setTagFilter] = useState('all');
-  
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const database = getDatabase();
     const allBooksRef = ref(database, 'books');
-    
+
     onValue(allBooksRef, (snapshot) => {
       const fbData = snapshot.val();
-      
+
       if (fbData) {
         const keys = Object.keys(fbData);
         const bookArray = [];
-        
+
         for (let i = 0; i < keys.length; i++) {
           const bookKey = keys[i];
           const bookData = fbData[bookKey];
@@ -60,28 +64,28 @@ export default function BookListing() {
           };
           bookArray.push(bookObj);
         }
-        
+
         setAllBooks(bookArray);
       } else {
         setAllBooks([]);
       }
     });
   }, []);
-  
+
   let displayBooks = allBooks;
-  
+
   if (statusFilter !== 'all') {
     displayBooks = displayBooks.filter((book) => {
       return book.status === statusFilter;
     });
   }
-  
+
   if (tagFilter !== 'all') {
     displayBooks = displayBooks.filter((book) => {
       return book.tags && book.tags.includes(tagFilter);
     });
   }
-  
+
   // filter books by search text
   if (searchText !== '') {
     displayBooks = displayBooks.filter((book) => {
@@ -91,7 +95,7 @@ export default function BookListing() {
       return titleMatch || authorMatch;
     });
   }
-  
+
   // sortation books
   if (sortBy === 'title') {
     displayBooks = displayBooks.sort((bookA, bookB) => {
@@ -110,7 +114,7 @@ export default function BookListing() {
       return bookA.genre.localeCompare(bookB.genre);
     });
   }
-  
+
   return (
     <main className="book-page">
       <section className="book-header-section">
@@ -123,14 +127,14 @@ export default function BookListing() {
           <h2 className="collection-heading">My Book Collection</h2>
           <Link to="/bookentry" className="add-book-btn">+ Add New Book</Link>
         </div>
-        
+
         {/* filter or sort*/}
         <div className="filter-sort-container">
           <div className="filter-section">
             <label htmlFor="status-filter">Filter by Status:</label>
-            <select 
-              id="status-filter" 
-              value={statusFilter} 
+            <select
+              id="status-filter"
+              value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
               <option value="all">All Books</option>
@@ -139,12 +143,12 @@ export default function BookListing() {
               <option value="want-to-read">Want to Read</option>
             </select>
           </div>
-          
+
           <div className="filter-section">
             <label htmlFor="tag-filter">Filter by Tag:</label>
-            <select 
-              id="tag-filter" 
-              value={tagFilter} 
+            <select
+              id="tag-filter"
+              value={tagFilter}
               onChange={(e) => setTagFilter(e.target.value)}
             >
               <option value="all">All Tags</option>
@@ -158,12 +162,12 @@ export default function BookListing() {
               <option value="Adventurous">Adventurous</option>
             </select>
           </div>
-          
+
           <div className="sort-section">
             <label htmlFor="sort-options">Sort by:</label>
-            <select 
-              id="sort-options" 
-              value={sortBy} 
+            <select
+              id="sort-options"
+              value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
               <option value="title">Title (A-Z)</option>
@@ -172,19 +176,19 @@ export default function BookListing() {
               <option value="status">Reading Status</option>
             </select>
           </div>
-          
+
           <div className="search-section">
             <label htmlFor="book-search">Search:</label>
-            <input 
-              type="text" 
-              id="book-search" 
-              placeholder="Search books or authors..." 
+            <input
+              type="text"
+              id="book-search"
+              placeholder="Search books or authors..."
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
         </div>
-        
+
         {/* Book Grid - using .map() to display filtered and sorted books */}
         <div className="book-grid">
           {displayBooks.length > 0 ? (

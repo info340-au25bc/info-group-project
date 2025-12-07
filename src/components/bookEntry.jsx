@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { getDatabase, ref, push } from 'firebase/database';
 
 function BookEntry () {
     const navigate = useNavigate();
-    
+
     // state for form
     const [bookTitleInput, setBookTitleInput] = useState('');
     const [authorInput, setAuthorInput] = useState('');
     const [genreInput, setGenreInput] = useState('');
     const [statusInput, setStatusInput] = useState('');
     const [tagsInput, setTagsInput] = useState([]);
-    
+
+    useEffect(() => {
+    window.scrollTo(0, 0);
+   }, []);
+
     function handleTagClick(tag) {
         const tagExists = tagsInput.includes(tag);
         if (tagExists) {
@@ -25,7 +29,7 @@ function BookEntry () {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        
+
         const newBookData = {
             title: bookTitleInput,
             author: authorInput,
@@ -34,11 +38,11 @@ function BookEntry () {
             tags: tagsInput,
             color: '#8C5B5E'
         };
-        
+
         const database = getDatabase();
         const booksRefInDatabase = ref(database, 'books');
         push(booksRefInDatabase, newBookData);
-        
+
         navigate('/allbooks');
     }
 
@@ -48,43 +52,43 @@ function BookEntry () {
                 <h1 className="book-entry-title">Add a New <span>Book</span></h1>
                 <p className="book-entry-subtitle">Share your next great read with your collection.</p>
             </section>
-            
+
             <form className="book-entry-form" onSubmit={handleFormSubmit}>
-                <button 
-                    type="button" 
-                    className="close-btn-details" 
+                <button
+                    type="button"
+                    className="close-btn-details"
                     onClick={() => navigate('/allbooks')}
                 >
                     ×
                 </button>
-                
+
                 <div className="form-group">
                     <label htmlFor="book-title">Book Title: <span className="required">*</span></label>
-                    <input 
-                        type="text" 
-                        id="book-title" 
-                        placeholder="Enter Book Title" 
+                    <input
+                        type="text"
+                        id="book-title"
+                        placeholder="Enter Book Title"
                         value={bookTitleInput}
                         onChange={(e) => setBookTitleInput(e.target.value)}
                         required
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="author">Author:</label>
-                    <input 
-                        type="text" 
-                        id="author" 
-                        placeholder="Enter Author Name" 
+                    <input
+                        type="text"
+                        id="author"
+                        placeholder="Enter Author Name"
                         value={authorInput}
                         onChange={(e) => setAuthorInput(e.target.value)}
                     />
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="genre">Genre:</label>
-                    <select 
-                        id="genre" 
+                    <select
+                        id="genre"
                         value={genreInput}
                         onChange={(e) => setGenreInput(e.target.value)}
                     >
@@ -105,11 +109,11 @@ function BookEntry () {
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                
+
                 <div className="form-group">
                     <label htmlFor="reading-status">Reading Status: <span className="required">*</span></label>
-                    <select 
-                        id="reading-status" 
+                    <select
+                        id="reading-status"
                         value={statusInput}
                         onChange={(e) => setStatusInput(e.target.value)}
                         required
@@ -120,7 +124,7 @@ function BookEntry () {
                         <option value="want-to-read">Want to Read</option>
                     </select>
                 </div>
-                
+
                 <div className="form-group">
                     <label>Tags (optional):</label>
                     <div className="tags-selector">
@@ -136,7 +140,7 @@ function BookEntry () {
                       ))}
                     </div>
                 </div>
-                
+
                 <button type="submit">Add Book</button>
             </form>
         </main>

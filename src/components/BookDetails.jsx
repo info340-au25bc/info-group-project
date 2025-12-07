@@ -14,33 +14,37 @@ export default function BookDetails() {
   const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const database = getDatabase();
     const bookLocation = 'books/' + bookId;
     const bookRefInDatabase = ref(database, bookLocation);
-    
+
     onValue(bookRefInDatabase, (snapshot) => {
       const fbData = snapshot.val();
       if (fbData) {
         setBookInfo(fbData);
-        
+
         if (fbData.description) {
           setDescriptionText(fbData.description);
         } else {
           setDescriptionText('');
         }
-        
+
         if (fbData.notes) {
           setNotesText(fbData.notes);
         } else {
           setNotesText('');
         }
-        
+
         if (fbData.date) {
           setDateInput(fbData.date);
         } else {
           setDateInput('');
         }
-        
+
         if (fbData.tags) {
           setSelectedTags(fbData.tags);
         } else {
@@ -53,7 +57,7 @@ export default function BookDetails() {
   function handleDateChange(event) {
     const newDate = event.target.value;
     setDateInput(newDate);
-    
+
     const database = getDatabase();
     const bookLocation = 'books/' + bookId;
     const bookRefInDatabase = ref(database, bookLocation);
@@ -68,13 +72,13 @@ export default function BookDetails() {
     const database = getDatabase();
     const bookLocation = 'books/' + bookId;
     const bookRefInDatabase = ref(database, bookLocation);
-    
+
     const updatedData = {
       description: descriptionText,
       notes: notesText,
       tags: selectedTags
     };
-    
+
     update(bookRefInDatabase, updatedData);
     setEditingMode(false);
   }
@@ -90,7 +94,7 @@ export default function BookDetails() {
   function clickJournalButton() {
     navigate('/journal/' + bookId);
   }
-  
+
   function toggleTag(tag) {
     const tagExists = selectedTags.includes(tag);
     if (tagExists) {
@@ -101,7 +105,7 @@ export default function BookDetails() {
       setSelectedTags(newTags);
     }
   }
-  
+
   function getTagClass(tag) {
     const lowerTag = tag.toLowerCase();
     const cleanTag = lowerTag.replace(' ', '-');
@@ -116,9 +120,9 @@ export default function BookDetails() {
     <main className="book-details">
       <div className="book-info">
         <button className="close-btn-details" onClick={() => navigate('/allbooks')}>×</button>
-        <input 
-          type="date" 
-          className="date-input" 
+        <input
+          type="date"
+          className="date-input"
           value={dateInput}
           onChange={handleDateChange}
         />
@@ -126,7 +130,7 @@ export default function BookDetails() {
         <p className="book-author"><span className="label">Author:</span> <i>{bookInfo.author}</i></p>
         <p className="book-genre"><span className="label">Genre:</span> {bookInfo.genre || 'N/A'}</p>
         <p className="book-status"><span className="label">Status:</span> {bookInfo.status}</p>
-        
+
         <div className="book-tags">
           <h3>Tags</h3>
           {editingMode ? (
@@ -156,7 +160,7 @@ export default function BookDetails() {
         <div className="book-description">
           <h3>Description</h3>
           {editingMode ? (
-            <textarea 
+            <textarea
               className="thoughts-area"
               value={descriptionText}
               onChange={(e) => setDescriptionText(e.target.value)}
@@ -170,7 +174,7 @@ export default function BookDetails() {
         <div className="book-notes">
           <h3>Notes</h3>
           {editingMode ? (
-            <textarea 
+            <textarea
               className="thoughts-area"
               value={notesText}
               onChange={(e) => setNotesText(e.target.value)}
