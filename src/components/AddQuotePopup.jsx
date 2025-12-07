@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
 export default function AddQuotePopup({ isOpen, onClose, onAddQuote }) {
-  const [quoteInput, setQuoteInput] = useState('');
+  const [quoteText, setQuoteText] = useState('');
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
-  function clickAddQuoteButton() {
-    if (quoteInput.trim()) {
-      onAddQuote(quoteInput);
-      setQuoteInput('');
+  function clickAddButton() {
+    const trimmedQuote = quoteText.trim();
+    if (trimmedQuote) {
+      onAddQuote(trimmedQuote);
+      setQuoteText('');
       onClose();
     }
   }
@@ -22,10 +25,10 @@ export default function AddQuotePopup({ isOpen, onClose, onAddQuote }) {
         <textarea 
           className="thoughts-area" 
           placeholder="Enter your quote or highlight here..."
-          value={quoteInput}
-          onChange={(e) => setQuoteInput(e.target.value)}
+          value={quoteText}
+          onChange={(e) => setQuoteText(e.target.value)}
         ></textarea>
-        <button className="add-quote-button" onClick={clickAddQuoteButton}>Add Quote</button>
+        <button className="add-quote-button" onClick={clickAddButton}>Add Quote</button>
       </div>
     </div>
   );

@@ -4,9 +4,9 @@ import { getDatabase, ref, onValue, update } from 'firebase/database';
 import AddQuotePopup from './AddQuotePopup';
 
 function StarRating({ rating, onRatingChange }) {
-  const [hoverRating, setHoverRating] = useState(0);
+  const [starHover, setStarHover] = useState(0);
 
-  function clickStar(starValue) {
+  function clickStarButton(starValue) {
     if (rating === starValue) {
       onRatingChange(0);
     } else if (rating === starValue - 0.5) {
@@ -16,11 +16,11 @@ function StarRating({ rating, onRatingChange }) {
     }
   }
 
-  function getStarFill(starNumber) {
-    const displayRating = hoverRating || rating;
-    if (displayRating >= starNumber) {
+  function getStarColor(starNumber) {
+    const showRating = starHover || rating;
+    if (showRating >= starNumber) {
       return '#ffdc19ff';
-    } else if (displayRating >= starNumber - 0.5) {
+    } else if (showRating >= starNumber - 0.5) {
       return 'url(#halfFill)';
     } else {
       return 'white';
@@ -62,18 +62,19 @@ function StarRating({ rating, onRatingChange }) {
 
 export default function JournallingPage() {
   const { bookId } = useParams();
-  const [isQuotePopupOpen, setIsQuotePopupOpen] = useState(false);
-  const [allQuotes, setAllQuotes] = useState([]);
-  const [selectedQuote, setSelectedQuote] = useState(null);
-  const [bookTitle, setBookTitle] = useState('');
-  const [bookRating, setBookRating] = useState(0);
+  const [showQuotePopup, setShowQuotePopup] = useState(false);
+  const [quotesList, setQuotesList] = useState([]);
+  const [clickedQuote, setClickedQuote] = useState(null);
+  const [theBookTitle, setTheBookTitle] = useState('');
+  const [starsRating, setStarsRating] = useState(0);
+  const [journalNotes, setJournalNotes] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     if (bookId) {
-      const database = getDatabase();
-      const bookLocation = 'books/' + bookId;
-      const bookRefInDatabase = ref(database, bookLocation);
+      const myDatabase = getDatabase();
+      const whereBookIs = 'books/' + bookId;
+      const bookInDatabase = ref(myDatabase, whereBookIs);
       
       onValue(bookInDatabase, (snapshot) => {
         const bookData = snapshot.val();
@@ -81,6 +82,12 @@ export default function JournallingPage() {
           setTheBookTitle(bookData.title);
           if (bookData.rating) {
             setStarsRating(bookData.rating);
+          }
+          if (bookData.journalNotes) {
+            setJournalNotes(bookData.journalNotes);
+          }
+          if (bookData.quotes) {
+            setQuotesList(bookData.quotes);
           }
         }
       });
@@ -101,7 +108,15 @@ export default function JournallingPage() {
         id: Date.now(),
         text: quoteText
       };
-      setQuotesList([...quotesList, quote]);
+      const newQuotesList = [...quotesList, quote];
+      setQuotesList(newQuotesList);
+      
+      const myDatabase = getDatabase();
+      const whereBookIs = 'books/' + bookId;
+      const bookInDatabase = ref(myDatabase, whereBookIs);
+      update(bookInDatabase, { quotes: newQuotesList });
+    } else {
+      alert('You can only add up to 2 quotes!');
     }
   }
 
@@ -118,14 +133,27 @@ export default function JournallingPage() {
     }
     setQuotesList(newQuotesList);
     setClickedQuote(null);
+    
+    const myDatabase = getDatabase();
+    const whereBookIs = 'books/' + bookId;
+    const bookInDatabase = ref(myDatabase, bookLocation);
+    update(bookInDatabase, { quotes: newQuotesList });
+  }
+
+  function saveJournal() {
+    const myDatabase = getDatabase();
+    const whereBookIs = 'books/' + bookId;
+    const bookInDatabase = ref(myDatabase, whereBookIs);
+    update(bookInDatabase, { journalNotes: journalNotes });
+    navigate('/book/' + bookId);
   }
 
   return (
     <main className="journal-page">
       <div className="book-journal-box">
-        <div className="close-btn" onClick={() => navigate('/allbooks')}>×</div>
+        <div className="close-btn" onClick={() => navigate('/book/' + bookId)}>×</div>
         
-        <div className="book-title">{bookTitle || 'Loading...'}</div>
+        <div className="book-title">{theBookTitle || 'Loading...'}</div>
         
         <div className="rating-quotes-row">
           <StarRating rating={starsRating} onRatingChange={changeRating} />
@@ -155,8 +183,13 @@ export default function JournallingPage() {
         </div>
         
         <div className="reflection-question">What stood out? Reflect overall</div>
-        <textarea className="thoughts-area" placeholder="Write your thoughts..."></textarea>
-        <button className="add-book-button">Save Journal</button>
+        <textarea 
+          className="thoughts-area" 
+          placeholder="Write your thoughts..."
+          value={journalNotes}
+          onChange={(e) => setJournalNotes(e.target.value)}
+        ></textarea>
+        <button className="add-book-button" onClick={saveJournal}>Save Journal</button>
       </div>
 
       <AddQuotePopup 

@@ -10,6 +10,18 @@ function BookEntry () {
     const [authorInput, setAuthorInput] = useState('');
     const [genreInput, setGenreInput] = useState('');
     const [statusInput, setStatusInput] = useState('');
+    const [tagsInput, setTagsInput] = useState([]);
+    
+    function handleTagClick(tag) {
+        const tagExists = tagsInput.includes(tag);
+        if (tagExists) {
+            const newTags = tagsInput.filter(t => t !== tag);
+            setTagsInput(newTags);
+        } else {
+            const newTags = [...tagsInput, tag];
+            setTagsInput(newTags);
+        }
+    }
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -19,6 +31,7 @@ function BookEntry () {
             author: authorInput,
             genre: genreInput,
             status: statusInput,
+            tags: tagsInput,
             color: '#8C5B5E'
         };
         
@@ -106,6 +119,22 @@ function BookEntry () {
                         <option value="completed">Completed</option>
                         <option value="want-to-read">Want to Read</option>
                     </select>
+                </div>
+                
+                <div className="form-group">
+                    <label>Tags (optional):</label>
+                    <div className="tags-selector">
+                      {['Inspirational', 'Dark', 'Emotional', 'Uplifting', 'Thought-provoking', 'Suspenseful', 'Heartwarming', 'Adventurous'].map(tag => (
+                        <button
+                          key={tag}
+                          type="button"
+                          className={tagsInput.includes(tag) ? 'tag-btn active' : 'tag-btn'}
+                          onClick={() => handleTagClick(tag)}
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
                 </div>
                 
                 <button type="submit">Add Book</button>

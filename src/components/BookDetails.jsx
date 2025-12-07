@@ -11,6 +11,7 @@ export default function BookDetails() {
   const [descriptionText, setDescriptionText] = useState('');
   const [notesText, setNotesText] = useState('');
   const [dateInput, setDateInput] = useState('');
+  const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
     const database = getDatabase();
@@ -18,26 +19,32 @@ export default function BookDetails() {
     const bookRefInDatabase = ref(database, bookLocation);
     
     onValue(bookRefInDatabase, (snapshot) => {
-      const dataFromFirebase = snapshot.val();
-      if (dataFromFirebase) {
-        setBookInfo(dataFromFirebase);
+      const fbData = snapshot.val();
+      if (fbData) {
+        setBookInfo(fbData);
         
-        if (dataFromFirebase.description) {
-          setDescriptionText(dataFromFirebase.description);
+        if (fbData.description) {
+          setDescriptionText(fbData.description);
         } else {
           setDescriptionText('');
         }
         
-        if (dataFromFirebase.notes) {
-          setNotesText(dataFromFirebase.notes);
+        if (fbData.notes) {
+          setNotesText(fbData.notes);
         } else {
           setNotesText('');
         }
         
-        if (dataFromFirebase.date) {
-          setDateInput(dataFromFirebase.date);
+        if (fbData.date) {
+          setDateInput(fbData.date);
         } else {
           setDateInput('');
+        }
+        
+        if (fbData.tags) {
+          setSelectedTags(fbData.tags);
+        } else {
+          setSelectedTags([]);
         }
       }
     });
@@ -64,7 +71,8 @@ export default function BookDetails() {
     
     const updatedData = {
       description: descriptionText,
-      notes: notesText
+      notes: notesText,
+      tags: selectedTags
     };
     
     update(bookRefInDatabase, updatedData);
@@ -82,6 +90,23 @@ export default function BookDetails() {
   function clickJournalButton() {
     navigate('/journal/' + bookId);
   }
+  
+  function toggleTag(tag) {
+    const tagExists = selectedTags.includes(tag);
+    if (tagExists) {
+      const newTags = selectedTags.filter(t => t !== tag);
+      setSelectedTags(newTags);
+    } else {
+      const newTags = [...selectedTags, tag];
+      setSelectedTags(newTags);
+    }
+  }
+  
+  function getTagClass(tag) {
+    const lowerTag = tag.toLowerCase();
+    const cleanTag = lowerTag.replace(' ', '-');
+    return 'tag-badge tag-' + cleanTag;
+  }
 
   if (!bookInfo) {
     return <div>Loading...</div>;
@@ -98,9 +123,35 @@ export default function BookDetails() {
           onChange={handleDateChange}
         />
         <h2 className="book-title">{bookInfo.title}</h2>
-        <p className="book-author"><i>{bookInfo.author}</i></p>
-        <p className="book-genre"><strong>Genre:</strong> {bookInfo.genre || 'N/A'}</p>
-        <p className="book-status"><strong>Status:</strong> {bookInfo.status}</p>
+        <p className="book-author"><span className="label">Author:</span> <i>{bookInfo.author}</i></p>
+        <p className="book-genre"><span className="label">Genre:</span> {bookInfo.genre || 'N/A'}</p>
+        <p className="book-status"><span className="label">Status:</span> {bookInfo.status}</p>
+        
+        <div className="book-tags">
+          <h3>Tags</h3>
+          {editingMode ? (
+            <div className="tags-selector">
+              {['Inspirational', 'Dark', 'Emotional', 'Uplifting', 'Thought-provoking', 'Suspenseful', 'Heartwarming', 'Adventurous'].map(tag => (
+                <button
+                  key={tag}
+                  type="button"
+                  className={selectedTags.includes(tag) ? 'tag-btn active' : 'tag-btn'}
+                  onClick={() => toggleTag(tag)}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="tags-display">
+              {selectedTags.length > 0 ? (
+                selectedTags.map(tag => <span key={tag} className={getTagClass(tag)}>{tag}</span>)
+              ) : (
+                <p>No tags yet.</p>
+              )}
+            </div>
+          )}
+        </div>
 
         <div className="book-description">
           <h3>Description</h3>

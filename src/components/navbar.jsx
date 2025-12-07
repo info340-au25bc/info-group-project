@@ -18,7 +18,6 @@ export default function NavBar() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/allbooks">All Books</Link></li>
           <li><Link to="/goals">Goals</Link></li>
-         { /* <li><Link to="/search" className="search-icon">🔍</Link></li> */ }
         </ul>
       </div>
     </nav>

@@ -1546,3 +1546,99 @@ h1 {
     font-size: 16px;
   }
 }
+
+.label {
+  font-weight: bold;
+}
+
+.book-tags {
+  margin: 20px 0;
+}
+
+.book-tags h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.tags-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag-btn {
+  padding: 8px 15px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.tag-btn:hover {
+  border-color: #8C5B5E;
+  color: #8C5B5E;
+}
+
+.tag-btn.active {
+  background: #8C5B5E;
+  color: white;
+  border-color: #8C5B5E;
+}
+
+.tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag-badge {
+  padding: 6px 12px;
+  background: #8C5B5E;
+  color: #333;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+.tag-inspirational {
+  background: #fcf3a3;
+  color: #333;
+}
+
+.tag-dark {
+  background: #9693a0;
+  color: #333;
+}
+
+.tag-emotional {
+  background: #add8e6;
+  color: #333;
+}
+
+.tag-uplifting {
+  background: #ffeb3b;
+  color: #333;
+}
+
+.tag-thought-provoking {
+  background: #d4befd;
+  color: #333;
+}
+
+.tag-suspenseful {
+  background: #ffbbb9;
+  color: #333;
+}
+
+.tag-heartwarming {
+  background: #f4c4e1;
+  color: #333;
+}
+
+.tag-adventurous {
+  background: #90ee90;
+  color: #333;
+}

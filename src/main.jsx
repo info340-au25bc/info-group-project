@@ -8,12 +8,8 @@ import App from './App.jsx'
 // imported BrowserRouter
 import { BrowserRouter } from 'react-router';
 
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDPA0bSty8yuUHpJzJCszQONdR4MkX4q-M",
   authDomain: "bookbuddy-project-e5386.firebaseapp.com",

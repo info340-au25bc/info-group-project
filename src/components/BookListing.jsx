@@ -30,33 +30,35 @@ function BookCard({ book }) {
 export default function BookListing() {
 
   const [allBooks, setAllBooks] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState('all');
-  const [selectedSortOption, setSelectedSortOption] = useState('title');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('title');
   const [searchText, setSearchText] = useState('');
+  const [tagFilter, setTagFilter] = useState('all');
   
   useEffect(() => {
     const database = getDatabase();
     const allBooksRef = ref(database, 'books');
     
     onValue(allBooksRef, (snapshot) => {
-      const firebaseData = snapshot.val();
+      const fbData = snapshot.val();
       
-      if (firebaseData) {
-        const bookKeys = Object.keys(firebaseData);
+      if (fbData) {
+        const keys = Object.keys(fbData);
         const bookArray = [];
         
-        for (let i = 0; i < bookKeys.length; i++) {
-          const bookKey = bookKeys[i];
-          const bookData = firebaseData[bookKey];
-          const bookWithId = {
+        for (let i = 0; i < keys.length; i++) {
+          const bookKey = keys[i];
+          const bookData = fbData[bookKey];
+          const bookObj = {
             id: bookKey,
             title: bookData.title,
             author: bookData.author,
             genre: bookData.genre,
             status: bookData.status,
-            color: bookData.color
+            color: bookData.color,
+            tags: bookData.tags || []
           };
-          bookArray.push(bookWithId);
+          bookArray.push(bookObj);
         }
         
         setAllBooks(bookArray);
@@ -66,36 +68,46 @@ export default function BookListing() {
     });
   }, []);
   
-  let booksToDisplay = allBooks;
+  let displayBooks = allBooks;
   
-  if (selectedStatus !== 'all') {
-    booksToDisplay = booksToDisplay.filter((book) => {
-      return book.status === selectedStatus;
+  if (statusFilter !== 'all') {
+    displayBooks = displayBooks.filter((book) => {
+      return book.status === statusFilter;
+    });
+  }
+  
+  if (tagFilter !== 'all') {
+    displayBooks = displayBooks.filter((book) => {
+      return book.tags && book.tags.includes(tagFilter);
     });
   }
   
   // filter books by search text
   if (searchText !== '') {
-    booksToDisplay = booksToDisplay.filter((book) => {
-      const lowerCaseSearch = searchText.toLowerCase();
-      const titleMatch = book.title.toLowerCase().includes(lowerCaseSearch);
-      const authorMatch = book.author.toLowerCase().includes(lowerCaseSearch);
+    displayBooks = displayBooks.filter((book) => {
+      const search = searchText.toLowerCase();
+      const titleMatch = book.title.toLowerCase().includes(search);
+      const authorMatch = book.author.toLowerCase().includes(search);
       return titleMatch || authorMatch;
     });
   }
   
   // sortation books
-  if (selectedSortOption === 'title') {
-    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+  if (sortBy === 'title') {
+    displayBooks = displayBooks.sort((bookA, bookB) => {
       return bookA.title.localeCompare(bookB.title);
     });
-  } else if (selectedSortOption === 'author') {
-    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+  } else if (sortBy === 'author') {
+    displayBooks = displayBooks.sort((bookA, bookB) => {
       return bookA.author.localeCompare(bookB.author);
     });
-  } else if (selectedSortOption === 'status') {
-    booksToDisplay = booksToDisplay.sort((bookA, bookB) => {
+  } else if (sortBy === 'status') {
+    displayBooks = displayBooks.sort((bookA, bookB) => {
       return bookA.status.localeCompare(bookB.status);
+    });
+  } else if (sortBy === 'genre') {
+    displayBooks = displayBooks.sort((bookA, bookB) => {
+      return bookA.genre.localeCompare(bookB.genre);
     });
   }
   
@@ -118,8 +130,8 @@ export default function BookListing() {
             <label htmlFor="status-filter">Filter by Status:</label>
             <select 
               id="status-filter" 
-              value={selectedStatus} 
-              onChange={(e) => setSelectedStatus(e.target.value)}
+              value={statusFilter} 
+              onChange={(e) => setStatusFilter(e.target.value)}
             >
               <option value="all">All Books</option>
               <option value="reading">Currently Reading</option>
@@ -128,15 +140,35 @@ export default function BookListing() {
             </select>
           </div>
           
+          <div className="filter-section">
+            <label htmlFor="tag-filter">Filter by Tag:</label>
+            <select 
+              id="tag-filter" 
+              value={tagFilter} 
+              onChange={(e) => setTagFilter(e.target.value)}
+            >
+              <option value="all">All Tags</option>
+              <option value="Inspirational">Inspirational</option>
+              <option value="Dark">Dark</option>
+              <option value="Emotional">Emotional</option>
+              <option value="Uplifting">Uplifting</option>
+              <option value="Thought-provoking">Thought-provoking</option>
+              <option value="Suspenseful">Suspenseful</option>
+              <option value="Heartwarming">Heartwarming</option>
+              <option value="Adventurous">Adventurous</option>
+            </select>
+          </div>
+          
           <div className="sort-section">
             <label htmlFor="sort-options">Sort by:</label>
             <select 
               id="sort-options" 
-              value={selectedSortOption} 
-              onChange={(e) => setSelectedSortOption(e.target.value)}
+              value={sortBy} 
+              onChange={(e) => setSortBy(e.target.value)}
             >
               <option value="title">Title (A-Z)</option>
               <option value="author">Author (A-Z)</option>
+              <option value="genre">Genre (A-Z)</option>
               <option value="status">Reading Status</option>
             </select>
           </div>
@@ -155,8 +187,8 @@ export default function BookListing() {
         
         {/* Book Grid - using .map() to display filtered and sorted books */}
         <div className="book-grid">
-          {booksToDisplay.length > 0 ? (
-            booksToDisplay.map((book) => (
+          {displayBooks.length > 0 ? (
+            displayBooks.map((book) => (
               <BookCard key={book.id} book={book} />
             ))
           ) : (
