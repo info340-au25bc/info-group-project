@@ -24,6 +24,10 @@ function BookEntry () {
     }
 
     function handleFormSubmit(event) {
+        var color = '';
+        const colors = ['#947A61', '#969198', '#8C5B5E', '#373133', '#5E7161'];
+        color = colors[Math.floor(Math.random() * colors.length)];
+
         event.preventDefault();
         
         const newBookData = {
@@ -32,7 +36,7 @@ function BookEntry () {
             genre: genreInput,
             status: statusInput,
             tags: tagsInput,
-            color: '#8C5B5E'
+            color: color
         };
         
         const database = getDatabase();
