@@ -6,6 +6,10 @@ import AddQuotePopup from './AddQuotePopup';
 function StarRating({ rating, onRatingChange }) {
   const [starHover, setStarHover] = useState(0);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   function clickStarButton(starValue) {
     if (rating === starValue) {
       onRatingChange(0);
@@ -75,7 +79,7 @@ export default function JournallingPage() {
       const myDatabase = getDatabase();
       const whereBookIs = 'books/' + bookId;
       const bookInDatabase = ref(myDatabase, whereBookIs);
-      
+
       onValue(bookInDatabase, (snapshot) => {
         const bookData = snapshot.val();
         if (bookData) {
@@ -110,7 +114,7 @@ export default function JournallingPage() {
       };
       const newQuotesList = [...quotesList, quote];
       setQuotesList(newQuotesList);
-      
+
       const myDatabase = getDatabase();
       const whereBookIs = 'books/' + bookId;
       const bookInDatabase = ref(myDatabase, whereBookIs);
@@ -133,7 +137,7 @@ export default function JournallingPage() {
     }
     setQuotesList(newQuotesList);
     setClickedQuote(null);
-    
+
     const myDatabase = getDatabase();
     const whereBookIs = 'books/' + bookId;
     const bookInDatabase = ref(myDatabase, bookLocation);
@@ -152,14 +156,14 @@ export default function JournallingPage() {
     <main className="journal-page">
       <div className="book-journal-box">
         <div className="close-btn" onClick={() => navigate('/book/' + bookId)}>×</div>
-        
+
         <div className="book-title">{theBookTitle || 'Loading...'}</div>
-        
+
         <div className="rating-quotes-row">
           <StarRating rating={starsRating} onRatingChange={changeRating} />
-          
+
           <div className="quotes-section">
-            <button 
+            <button
               className="quote-btn"
               onClick={() => setShowQuotePopup(true)}
               style={{ cursor: 'pointer' }}
@@ -169,8 +173,8 @@ export default function JournallingPage() {
             </button>
             <div className="quote-boxes-container">
               {quotesList.map((quote) => (
-                <div 
-                  key={quote.id} 
+                <div
+                  key={quote.id}
                   className="quote-box1"
                   onClick={() => openQuote(quote)}
                   style={{ cursor: 'pointer' }}
@@ -181,10 +185,10 @@ export default function JournallingPage() {
             </div>
           </div>
         </div>
-        
+
         <div className="reflection-question">What stood out? Reflect overall</div>
-        <textarea 
-          className="thoughts-area" 
+        <textarea
+          className="thoughts-area"
           placeholder="Write your thoughts..."
           value={journalNotes}
           onChange={(e) => setJournalNotes(e.target.value)}
@@ -192,8 +196,8 @@ export default function JournallingPage() {
         <button className="add-book-button" onClick={saveJournal}>Save Journal</button>
       </div>
 
-      <AddQuotePopup 
-        isOpen={showQuotePopup} 
+      <AddQuotePopup
+        isOpen={showQuotePopup}
         onClose={() => setShowQuotePopup(false)}
         onAddQuote={addQuote}
       />
