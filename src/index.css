@@ -201,7 +201,7 @@ h1 {
     left: 15px;
     font-family: "Nunito Sans", sans-serif;
     font-size: 12px;
-    color: #999;
+    color: #757575;
     font-weight: 400;
     border: none;
     border-radius: 5px;
@@ -942,7 +942,7 @@ h1 {
 
 .book-info p {
   font-size: 1rem;
-  color: #969198;
+  color: #74747B;
   margin: 0.5rem 0;
 }
 
@@ -1235,7 +1235,7 @@ h1 {
 }
 
 .journal-btn {
-  background: #947A61;
+  background: #966E54;
 }
 
 .journal-btn:hover {
@@ -1243,7 +1243,7 @@ h1 {
 }
 
 .delete-btn {
-  background: #d9534f;
+  background: #D4403A;
   color: white;
   border: none;
   border-radius: 8px;

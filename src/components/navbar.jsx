@@ -11,8 +11,8 @@ export default function NavBar() {
       </div>
       <div className="nav-right">
         <input type="checkbox" id="menu-toggle"/>
-      <label for="menu-toggle" id="hamburger" aria-label="Open Menu">
-        <span class="fa fa-bars"></span>
+      <label htmlFor="menu-toggle" id="hamburger" aria-label="Open Menu">
+        <span className="fa fa-bars"></span>
       </label>
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>

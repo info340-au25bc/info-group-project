@@ -120,7 +120,9 @@ export default function BookDetails() {
     <main className="book-details">
       <div className="book-info">
         <button className="close-btn-details" onClick={() => navigate('/allbooks')}>×</button>
+        <label htmlFor="dateInput">Select A Date:</label>
         <input
+          id="dateInput"
           type="date"
           className="date-input"
           value={dateInput}
