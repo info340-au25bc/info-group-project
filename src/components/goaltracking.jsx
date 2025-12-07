@@ -198,16 +198,33 @@ export default function GoalsPage() {
         </div>
 
         {creatingGoal && (
-          <div className="goal-item new-goal-item">
+          <form
+            className="goal-item new-goal-item"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleConfirmNewGoal();
+            }}
+          >
+            
+            <label htmlFor="new-goal-input" className="sr-only">
+              Enter a new goal
+            </label>
+
             <input
+              id="new-goal-input"
               type="text"
               placeholder="Enter a new goal"
               value={newGoalText}
               onChange={(e) => setNewGoalText(e.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <button className="save-goal-btn" onClick={handleConfirmNewGoal}>Save</button>
+
+            <button type="submit" className="save-goal-btn">
+              Save
+            </button>
+
             <button
+              type="button"
               className="cancel-goal-btn"
               onClick={() => {
                 setCreatingGoal(false);
@@ -216,7 +233,7 @@ export default function GoalsPage() {
             >
               ✖
             </button>
-          </div>
+          </form>
         )}
 
         <div>
