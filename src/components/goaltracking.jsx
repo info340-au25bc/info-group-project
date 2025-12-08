@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, remove, set, push } from 'firebase/database';
+import { BsBullseye } from 'react-icons/bs';
 
 // progessbar: displays overall goal completion progress
 
@@ -193,8 +194,9 @@ export default function GoalsPage() {
 
       <section className="gt-goals">
         <div className="goals-header">
-          <h2 className="gt-goals-title">My Reading Goals</h2>
+            <h2 className="gt-goals-title">My Reading Goals</h2>
           <button className="add-goal-btn" onClick={handleAddGoal}>+ Add Goal</button>
+          
         </div>
 
         {creatingGoal && (

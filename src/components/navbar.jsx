@@ -1,6 +1,7 @@
 import React from 'react'; //import React Component
 
 import { Link } from "react-router";
+import { FaBars } from 'react-icons/fa6';
 
 export default function NavBar() {
   return (
@@ -12,7 +13,7 @@ export default function NavBar() {
       <div className="nav-right">
         <input type="checkbox" id="menu-toggle"/>
       <label htmlFor="menu-toggle" id="hamburger" aria-label="Open Menu">
-        <span className="fa fa-bars"></span>
+        <FaBars />
       </label>
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>

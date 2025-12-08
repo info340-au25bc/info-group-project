@@ -309,6 +309,12 @@ h1 {
 .footer-content {
     text-align: center;
     font-family: "Nunito Sans", sans-serif;
+    margin-bottom: 20px;
+}
+
+.footer-image {
+    width: 120px;
+    height: auto;
 }
 
 .footer-links a {
