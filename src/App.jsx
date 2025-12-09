@@ -3,7 +3,7 @@ import React from 'react'; //import React Component
 import NavBar from "./components/navbar";
 import HomePage from './components/home';
 import BookListing from './components/BookListing';
-import JournallingPage from './components/JournallingPage';
+import JournallingPage from './components/JournalingPage';
 import GoalsPage from './components/goaltracking';
 import BookEntry from './components/bookEntry';
 import BookDetails from './components/BookDetails';
