@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, remove, set, push } from 'firebase/database';
 import { BsBullseye } from 'react-icons/bs';
 
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
+
 // progessbar: displays overall goal completion progress
 
 function ProgressBar({ completed, total }) {
@@ -52,6 +56,7 @@ function GoalItem({ goal, onToggle, onDelete }) {
   );
 }
 
+
 // GoalsPage is the main page showing progress and goals
 export default function GoalsPage() {
 
@@ -60,6 +65,11 @@ export default function GoalsPage() {
   const [creatingGoal, setCreatingGoal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [date, setDate] = useState(new Date ());
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -112,6 +122,7 @@ export default function GoalsPage() {
   async function handleConfirmNewGoal() {
     if (newGoalText.trim() === "") {
       return;
+      
     }
 
     const db = getDatabase();
@@ -119,7 +130,8 @@ export default function GoalsPage() {
     const obj = {
       text: newGoalText.trim(),
       completed: false,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      date: date.toISOString()
     };
 
     setIsLoading(true);
@@ -183,6 +195,13 @@ export default function GoalsPage() {
   }
 
   // --- COUNT COMPLETED ---
+<<<<<<< HEAD
+=======
+  const goalsForDate = goals.filter(
+    g => g.date ? new Date(g.date).toDateString() === date.toDateString() : true
+  );
+
+>>>>>>> fc28468 (added calendar on goals tracking page for third image)
   const completedTotal = goals.filter(g => g.completed).length;
 
   const goalItems = goals.map((goal) => (
@@ -257,6 +276,16 @@ export default function GoalsPage() {
         <div>
           {goalItems}
         </div>
+        
+        <section className="gt-calendar">
+          <h2 className="gt-calendar-title">Goal Calendar</h2>
+          <Calendar
+            onChange={setDate}   // updates selected date
+            value={date}         // currently selected date
+          />
+          <p>Selected Date: {date.toDateString()}</p>
+        </section>
+
       </section>
     </div>
   );

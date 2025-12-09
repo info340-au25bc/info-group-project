@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import React from 'react'; //import React Component
 
 import { Link } from "react-router-dom";
+=======
+import React from 'react';
+import { Link } from "react-router";
+>>>>>>> fc28468 (added calendar on goals tracking page for third image)
 import { FaBars } from 'react-icons/fa6';
+import BookBodyLogo from "/img/BookBuddyLogo.png"
 
 export default function NavBar() {
   return (
@@ -10,6 +16,7 @@ export default function NavBar() {
         <img src="/img/BookBuddyLogo.png" alt="BookBuddy Logo" className="logo" />
         <Link to="/" className="site-title-link"><h1 className="site-title">BookBuddy</h1></Link>
       </div>
+      
       <div className="nav-right">
         <input type="checkbox" id="menu-toggle"/>
       <label htmlFor="menu-toggle" id="hamburger" aria-label="Open Menu">

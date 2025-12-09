@@ -1,13 +1,19 @@
 import React from 'react'; //import React Component
 
-import NavBar from "./components/navbar";
-import HomePage from './components/home';
+import NavBar from "./components/Navbar";
+import HomePage from './components/Home';
 import BookListing from './components/BookListing';
+<<<<<<< HEAD
 import JournallingPage from './components/JournalingPage';
 import GoalsPage from './components/goaltracking';
 import BookEntry from './components/bookEntry';
+=======
+import JournalingPage from './components/JournalingPage';
+import GoalsPage from './components/GoalTracking';
+import BookEntry from './components/BookEntry';
+>>>>>>> fc28468 (added calendar on goals tracking page for third image)
 import BookDetails from './components/BookDetails';
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import { Routes, Route } from "react-router-dom"
 
 function App(props) {
@@ -20,7 +26,7 @@ function App(props) {
         <Route path="/allbooks" element={<BookListing />} />
         <Route path="/bookentry" element={<BookEntry />} />
         <Route path="/book/:bookId" element={<BookDetails />} />
-        <Route path="/journal/:bookId" element={<JournallingPage />} />
+        <Route path="/journal/:bookId" element={<JournalingPage />} />
         <Route path="/goals" element={<GoalsPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
