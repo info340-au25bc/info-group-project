@@ -6,7 +6,7 @@ import './index.css'
 import App from './App.jsx'
 
 // imported BrowserRouter
-import { BrowserRouter } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 
 import { initializeApp } from "firebase/app";
 

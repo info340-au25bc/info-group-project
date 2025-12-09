@@ -8,7 +8,7 @@ import GoalsPage from './components/goaltracking';
 import BookEntry from './components/bookEntry';
 import BookDetails from './components/BookDetails';
 import Footer from "./components/footer";
-import { Routes, Route } from "react-router"
+import { Routes, Route } from "react-router-dom"
 
 function App(props) {
 
