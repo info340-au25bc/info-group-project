@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, remove, set, push } from 'firebase/database';
 import { BsBullseye } from 'react-icons/bs';
 
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-
 import GoalIcon from '../assets/Writing-Down-Goals.jpg';
 
 // progessbar: displays overall goal completion progress
@@ -277,15 +274,6 @@ export default function GoalsPage() {
           {goalItems}
         </div>
         
-        <section className="gt-calendar">
-          <h2 className="gt-calendar-title">Goal Calendar</h2>
-          <Calendar
-            onChange={setDate}   // updates selected date
-            value={date}         // currently selected date
-          />
-          <p>Selected Date: {date.toDateString()}</p>
-        </section>
-
       </section>
     </div>
   );
