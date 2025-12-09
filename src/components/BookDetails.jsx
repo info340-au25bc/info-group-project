@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, onValue, update, remove } from 'firebase/database';
+
+const ALL_TAG_OPTIONS = [
+  'Inspirational',
+  'Dark',
+  'Emotional',
+  'Uplifting',
+  'Thought-provoking',
+  'Suspenseful',
+  'Heartwarming',
+  'Adventurous'
+];
 
 export default function BookDetails() {
   const { bookId } = useParams();
@@ -12,6 +23,8 @@ export default function BookDetails() {
   const [notesText, setNotesText] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,36 +35,37 @@ export default function BookDetails() {
     const bookLocation = 'books/' + bookId;
     const bookRefInDatabase = ref(database, bookLocation);
 
-    onValue(bookRefInDatabase, (snapshot) => {
-      const fbData = snapshot.val();
-      if (fbData) {
-        setBookInfo(fbData);
+    setIsLoading(true);
+    setErrorMessage('');
 
-        if (fbData.description) {
-          setDescriptionText(fbData.description);
+    const unsubscribe = onValue(
+      bookRefInDatabase,
+      (snapshot) => {
+        const fbData = snapshot.val();
+
+        if (fbData) {
+          setBookInfo(fbData);
+          setDescriptionText(fbData.description ?? '');
+          setNotesText(fbData.notes ?? '');
+          setDateInput(fbData.date ?? '');
+          setSelectedTags(fbData.tags ?? []);
         } else {
+          setBookInfo(null);
           setDescriptionText('');
-        }
-
-        if (fbData.notes) {
-          setNotesText(fbData.notes);
-        } else {
           setNotesText('');
-        }
-
-        if (fbData.date) {
-          setDateInput(fbData.date);
-        } else {
           setDateInput('');
-        }
-
-        if (fbData.tags) {
-          setSelectedTags(fbData.tags);
-        } else {
           setSelectedTags([]);
         }
+
+        setIsLoading(false);
+      },
+      () => {
+        setErrorMessage('Failed to load this book. Please try again.');
+        setIsLoading(false);
       }
-    });
+    );
+
+    return () => unsubscribe();
   }, [bookId]);
 
   function handleDateChange(event) {
@@ -61,7 +75,10 @@ export default function BookDetails() {
     const database = getDatabase();
     const bookLocation = 'books/' + bookId;
     const bookRefInDatabase = ref(database, bookLocation);
-    update(bookRefInDatabase, { date: newDate });
+
+    update(bookRefInDatabase, { date: newDate }).catch(() => {
+      setErrorMessage('Could not update the date. Please try again.');
+    });
   }
 
   function clickEditButton() {
@@ -79,16 +96,28 @@ export default function BookDetails() {
       tags: selectedTags
     };
 
-    update(bookRefInDatabase, updatedData);
-    setEditingMode(false);
+    update(bookRefInDatabase, updatedData)
+      .then(() => {
+        setEditingMode(false);
+        setErrorMessage('');
+      })
+      .catch(() => {
+        setErrorMessage('Could not save your changes. Please try again.');
+      });
   }
 
   function clickDeleteButton() {
     const database = getDatabase();
     const bookLocation = 'books/' + bookId;
     const bookRefInDatabase = ref(database, bookLocation);
-    remove(bookRefInDatabase);
-    navigate('/allbooks');
+
+    remove(bookRefInDatabase)
+      .then(() => {
+        navigate('/allbooks');
+      })
+      .catch(() => {
+        setErrorMessage('Could not delete this book. Please try again.');
+      });
   }
 
   function clickJournalButton() {
@@ -112,14 +141,52 @@ export default function BookDetails() {
     return 'tag-badge tag-' + cleanTag;
   }
 
+  const tagButtons = ALL_TAG_OPTIONS.map(tag => {
+    const isActive = selectedTags.includes(tag);
+    const className = isActive ? 'tag-btn active' : 'tag-btn';
+
+    return (
+      <button
+        key={tag}
+        type="button"
+        className={className}
+        onClick={() => toggleTag(tag)}
+      >
+        {tag}
+      </button>
+    );
+  });
+
+  const tagBadges = selectedTags.map(tag => (
+    <span key={tag} className={getTagClass(tag)}>{tag}</span>
+  ));
+
+  if (isLoading) {
+    return (
+      <main className="book-details">
+        <p className="loading-banner">Loading...</p>
+      </main>
+    );
+  }
+
   if (!bookInfo) {
     return <div>Loading...</div>;
   }
 
   return (
     <main className="book-details">
+      {errorMessage && (
+        <p className="error-banner">{errorMessage}</p>
+      )}
       <div className="book-info">
-        <button className="close-btn-details" onClick={() => navigate('/allbooks')}>×</button>
+        <button
+          type="button"
+          className="close-btn-details"
+          onClick={() => navigate('/allbooks')}
+          aria-label="Close and return to all books"
+        >
+          ×
+        </button>
         <label htmlFor="dateInput">Select A Date:</label>
         <input
           id="dateInput"
@@ -137,21 +204,12 @@ export default function BookDetails() {
           <h3>Tags</h3>
           {editingMode ? (
             <div className="tags-selector">
-              {['Inspirational', 'Dark', 'Emotional', 'Uplifting', 'Thought-provoking', 'Suspenseful', 'Heartwarming', 'Adventurous'].map(tag => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={selectedTags.includes(tag) ? 'tag-btn active' : 'tag-btn'}
-                  onClick={() => toggleTag(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
+              {tagButtons}
             </div>
           ) : (
             <div className="tags-display">
               {selectedTags.length > 0 ? (
-                selectedTags.map(tag => <span key={tag} className={getTagClass(tag)}>{tag}</span>)
+                tagBadges
               ) : (
                 <p>No tags yet.</p>
               )}

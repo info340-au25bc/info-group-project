@@ -1,6 +1,6 @@
 import React from 'react'; //import React Component
 
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { FaBars } from 'react-icons/fa6';
 
 export default function NavBar() {

@@ -58,13 +58,20 @@ export default function GoalsPage() {
   const [goals, setGoals] = useState([]);
   const [newGoalText, setNewGoalText] = useState("");
   const [creatingGoal, setCreatingGoal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // --- READ GOALS ---
   useEffect(() => {
     const db = getDatabase();
     const goalsRef = ref(db, "goals/");
+
+    setIsLoading(true);
+    setErrorMessage("");
 
     const unsubscribe = onValue(
       goalsRef,
@@ -73,6 +80,7 @@ export default function GoalsPage() {
 
         if (!data) {
           setGoals([]);
+          setIsLoading(false);
           return;
         }
 
@@ -85,9 +93,11 @@ export default function GoalsPage() {
 
         arr.sort((a, b) => b.createdAt - a.createdAt);
         setGoals(arr);
+        setIsLoading(false);
       },
-      (error) => {
-        setErrorMessage("Failed to load goals: " + error.message);
+      () => {
+        setErrorMessage("Failed to load goals. Please try again.");
+        setIsLoading(false);
       }
     );
 
@@ -119,8 +129,7 @@ export default function GoalsPage() {
       await push(goalsRef, obj);
       setNewGoalText("");
       setCreatingGoal(false);
-    } catch (err) {
-      console.error("Failed to add goal:", err);
+    } catch {
       setErrorMessage("Could not save your goal. Please check your connection or permissions.");
     }
 
@@ -137,8 +146,8 @@ export default function GoalsPage() {
 
     try {
       await remove(goalsRef);
-    } catch (err) {
-      setErrorMessage("Failed to delete goal: " + err.message);
+    } catch {
+      setErrorMessage("Failed to delete goal. Please try again.");
     }
 
     setIsLoading(false);
@@ -154,8 +163,8 @@ export default function GoalsPage() {
 
     try {
       await set(completedRef, newValue);
-    } catch (err) {
-      setErrorMessage("Failed to update goal: " + err.message);
+    } catch {
+      setErrorMessage("Failed to update goal. Please try again.");
     }
 
     setIsLoading(false);
@@ -174,7 +183,16 @@ export default function GoalsPage() {
   }
 
   // --- COUNT COMPLETED ---
-  let completedTotal = goals.filter(g => g.completed).length;
+  const completedTotal = goals.filter(g => g.completed).length;
+
+  const goalItems = goals.map((goal) => (
+    <GoalItem
+      key={goal.id}
+      goal={goal}
+      onToggle={handleToggle}
+      onDelete={handleDelete}
+    />
+  ));
 
   return (
     <div>
@@ -194,9 +212,8 @@ export default function GoalsPage() {
 
       <section className="gt-goals">
         <div className="goals-header">
-            <h2 className="gt-goals-title">My Reading Goals</h2>
+          <h2 className="gt-goals-title">My Reading Goals</h2>
           <button className="add-goal-btn" onClick={handleAddGoal}>+ Add Goal</button>
-          
         </div>
 
         {creatingGoal && (
@@ -207,7 +224,6 @@ export default function GoalsPage() {
               handleConfirmNewGoal();
             }}
           >
-            
             <label htmlFor="new-goal-input" className="sr-only">
               Enter a new goal
             </label>
@@ -239,14 +255,7 @@ export default function GoalsPage() {
         )}
 
         <div>
-          {goals.map((goal) => (
-            <GoalItem
-              key={goal.id}
-              goal={goal}
-              onToggle={handleToggle}
-              onDelete={handleDelete}
-            />
-          ))}
+          {goalItems}
         </div>
       </section>
     </div>

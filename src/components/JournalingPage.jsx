@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
 import AddQuotePopup from './AddQuotePopup';
 
@@ -72,56 +72,88 @@ export default function JournallingPage() {
   const [theBookTitle, setTheBookTitle] = useState('');
   const [starsRating, setStarsRating] = useState(0);
   const [journalNotes, setJournalNotes] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (bookId) {
-      const myDatabase = getDatabase();
-      const whereBookIs = 'books/' + bookId;
-      const bookInDatabase = ref(myDatabase, whereBookIs);
+    window.scrollTo(0, 0);
+  }, []);
 
-      onValue(bookInDatabase, (snapshot) => {
+  useEffect(() => {
+    if (!bookId) {
+      setErrorMessage('No book selected for journaling.');
+      setIsLoading(false);
+      return;
+    }
+
+    const myDatabase = getDatabase();
+    const whereBookIs = 'books/' + bookId;
+    const bookInDatabase = ref(myDatabase, whereBookIs);
+
+    setIsLoading(true);
+    setErrorMessage('');
+
+    const unsubscribe = onValue(
+      bookInDatabase,
+      (snapshot) => {
         const bookData = snapshot.val();
         if (bookData) {
           setTheBookTitle(bookData.title);
-          if (bookData.rating) {
-            setStarsRating(bookData.rating);
-          }
-          if (bookData.journalNotes) {
-            setJournalNotes(bookData.journalNotes);
-          }
-          if (bookData.quotes) {
-            setQuotesList(bookData.quotes);
-          }
+          setStarsRating(bookData.rating ?? 0);
+          setJournalNotes(bookData.journalNotes ?? '');
+          setQuotesList(bookData.quotes ?? []);
+        } else {
+          setTheBookTitle('');
+          setStarsRating(0);
+          setJournalNotes('');
+          setQuotesList([]);
         }
-      });
-    }
+        setIsLoading(false);
+      },
+      () => {
+        setErrorMessage('Failed to load this book. Please try again.');
+        setIsLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
   }, [bookId]);
 
   function changeRating(newRating) {
     setStarsRating(newRating);
+
     const myDatabase = getDatabase();
     const whereBookIs = 'books/' + bookId;
     const bookInDatabase = ref(myDatabase, whereBookIs);
-    update(bookInDatabase, { rating: newRating });
+
+    update(bookInDatabase, { rating: newRating }).catch(() => {
+      setErrorMessage('Could not update rating. Please try again.');
+    });
   }
 
   function addQuote(quoteText) {
-    if (quotesList.length < 2) {
-      const quote = {
-        id: Date.now(),
-        text: quoteText
-      };
-      const newQuotesList = [...quotesList, quote];
-      setQuotesList(newQuotesList);
-
-      const myDatabase = getDatabase();
-      const whereBookIs = 'books/' + bookId;
-      const bookInDatabase = ref(myDatabase, whereBookIs);
-      update(bookInDatabase, { quotes: newQuotesList });
-    } else {
-      alert('You can only add up to 2 quotes!');
+    if (quotesList.length >= 2) {
+      setErrorMessage('You can only add up to 2 quotes.');
+      return;
     }
+
+    const quote = {
+      id: Date.now(),
+      text: quoteText
+    };
+
+    const newQuotesList = [...quotesList, quote];
+    setQuotesList(newQuotesList);
+    setErrorMessage('');
+
+    const myDatabase = getDatabase();
+    const whereBookIs = 'books/' + bookId;
+    const bookInDatabase = ref(myDatabase, whereBookIs);
+
+    update(bookInDatabase, { quotes: newQuotesList }).catch(() => {
+      setErrorMessage('Could not save your quote. Please try again.');
+    });
   }
 
   function openQuote(quote) {
@@ -129,31 +161,58 @@ export default function JournallingPage() {
   }
 
   function deleteQuote() {
-    const newQuotesList = [];
-    for (let i = 0; i < quotesList.length; i++) {
-      if (quotesList[i].id !== clickedQuote.id) {
-        newQuotesList.push(quotesList[i]);
-      }
-    }
+    const newQuotesList = quotesList.filter((quote) => quote.id !== clickedQuote.id);
     setQuotesList(newQuotesList);
     setClickedQuote(null);
 
     const myDatabase = getDatabase();
     const whereBookIs = 'books/' + bookId;
-    const bookInDatabase = ref(myDatabase, bookLocation);
-    update(bookInDatabase, { quotes: newQuotesList });
+    const bookInDatabase = ref(myDatabase, whereBookIs);
+
+    update(bookInDatabase, { quotes: newQuotesList }).catch(() => {
+      setErrorMessage('Could not delete this quote. Please try again.');
+    });
   }
 
   function saveJournal() {
     const myDatabase = getDatabase();
     const whereBookIs = 'books/' + bookId;
     const bookInDatabase = ref(myDatabase, whereBookIs);
-    update(bookInDatabase, { journalNotes: journalNotes });
-    navigate('/book/' + bookId);
+
+    update(bookInDatabase, { journalNotes: journalNotes })
+      .then(() => {
+        navigate('/book/' + bookId);
+      })
+      .catch(() => {
+        setErrorMessage('Could not save your journal. Please try again.');
+      });
+  }
+
+  const quoteBoxes = quotesList.map((quote) => (
+    <div
+      key={quote.id}
+      className="quote-box1"
+      onClick={() => openQuote(quote)}
+      style={{ cursor: 'pointer' }}
+    >
+      "{quote.text}"
+    </div>
+  ));
+
+  if (isLoading) {
+    return (
+      <main className="journal-page">
+        <p className="loading-banner">Loading journal...</p>
+      </main>
+    );
   }
 
   return (
     <main className="journal-page">
+      {errorMessage && (
+        <p className="error-banner">{errorMessage}</p>
+      )}
+
       <div className="book-journal-box">
         <div className="close-btn" onClick={() => navigate('/book/' + bookId)}>×</div>
 
@@ -172,16 +231,7 @@ export default function JournallingPage() {
               + Add a quote or highlight
             </button>
             <div className="quote-boxes-container">
-              {quotesList.map((quote) => (
-                <div
-                  key={quote.id}
-                  className="quote-box1"
-                  onClick={() => openQuote(quote)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  "{quote.text}"
-                </div>
-              ))}
+              {quoteBoxes}
             </div>
           </div>
         </div>
