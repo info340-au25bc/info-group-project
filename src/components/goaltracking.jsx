@@ -18,12 +18,11 @@ function ProgressBar({ completed, total }) {
 
   return (
     <section className="gt-progress">
-      <img src={GoalIcon} alt="Goal Icon" className="goal-image" />
       <h2 className="home-title">Prog<span>ress</span></h2>
       <p className="home-subtitle" style={{ color: "#5a5760" }}>
         A tracker to help you read more and reach your goals.
       </p>
-
+      <img src={GoalIcon} alt="Goal Icon" className="goal-image" />
       <p className="progress-percent">Goal Progress: {percent}%</p>
 
       <div className="progress-bar">
@@ -121,7 +120,7 @@ export default function GoalsPage() {
   async function handleConfirmNewGoal() {
     if (newGoalText.trim() === "") {
       return;
-      
+
     }
 
     const db = getDatabase();
@@ -198,7 +197,7 @@ export default function GoalsPage() {
   const goalsForDate = goals.filter(
     g => g.date ? new Date(g.date).toDateString() === date.toDateString() : true
   );
-  
+
   const completedTotal = goals.filter(g => g.completed).length;
 
   const goalItems = goals.map((goal) => (
@@ -273,7 +272,7 @@ export default function GoalsPage() {
         <div>
           {goalItems}
         </div>
-        
+
       </section>
     </div>
   );
