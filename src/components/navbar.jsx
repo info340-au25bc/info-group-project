@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import React from 'react'; //import React Component
-
-import { Link } from "react-router-dom";
-=======
 import React from 'react';
 import { Link } from "react-router";
->>>>>>> fc28468 (added calendar on goals tracking page for third image)
 import { FaBars } from 'react-icons/fa6';
 import BookBodyLogo from "/img/BookBuddyLogo.png"
 

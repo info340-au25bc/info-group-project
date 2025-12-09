@@ -195,13 +195,11 @@ export default function GoalsPage() {
   }
 
   // --- COUNT COMPLETED ---
-<<<<<<< HEAD
-=======
+
   const goalsForDate = goals.filter(
     g => g.date ? new Date(g.date).toDateString() === date.toDateString() : true
   );
-
->>>>>>> fc28468 (added calendar on goals tracking page for third image)
+  
   const completedTotal = goals.filter(g => g.completed).length;
 
   const goalItems = goals.map((goal) => (
